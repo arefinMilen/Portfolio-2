@@ -34,8 +34,25 @@ a:hover{
 img{
     width: 100%;
 }
+.text-brand{
+    color: var(--color-brand);
+}
+.lead{
 
+}
+.full-height{
+    min-height: 100vh;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
 /* navbar  */
+
+.navbar{
+    background-color: var(--color-base);
+}
 .navbar .nav-link 
 {
     font-weight: 700;
@@ -53,7 +70,6 @@ img{
         min-height: 100vh;
         width: var(--sidbar-width);
         background:linear-gradient(red,red),url(
-
         );
        background-size: cover;
        background-position: center;
@@ -62,4 +78,39 @@ img{
     .nabar-brand img {
         border:8px solid var(--color-brand) ;
     }
+    #content-dropper{
+      padding-left: var(--sidbar-width);
+    }
+}
+
+.btn{
+    padding: 12px 28px;
+    font-weight: 700;
+}
+.btn-brand{
+    background-color: var(--color-brand);
+    border-color: var(--color-brand);
+}
+.btn-brand:hover,.btn-brand:focus{
+background-color: var(--color-brand2);
+color: var(--color-base);
+border-color: var(--color-brand2);
+}
+.link-custom{
+font-weight: 700;
+position: relative;
+}
+.link-custom::after {
+    content: "";
+    width:0%;
+    background-color: var(--color-brand);
+    height: 2px;
+    position: absolute;
+    left: 0;
+    top: 110%;
+    transition: all 0.4s;
+}
+.link-custom:hover::after
+{
+    width: 100%;
 }
