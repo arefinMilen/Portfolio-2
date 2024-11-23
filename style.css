@@ -37,8 +37,9 @@ img{
 .text-brand{
     color: var(--color-brand);
 }
-.lead{
-
+.bg-base
+{
+    background-color: var(--color-base);
 }
 .full-height{
     min-height: 100vh;
@@ -47,6 +48,12 @@ img{
     flex-direction: column;
     justify-content: center;
     border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+.shadow-effect{
+    transition: all .5s;
+}
+.shadow-effect:hover{
+    box-shadow: -6px 6px 0 0 var(--color-brand);
 }
 /* navbar  */
 
