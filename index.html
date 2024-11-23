@@ -12,7 +12,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-bs-spy="scroll" data-bs-target="#navbar-example">
   <!-- navbar start here  -->
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container flex-lg-column">
@@ -32,7 +32,7 @@
             <a class="nav-link" href="#services">Services</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#work">Work</a>
+            <a class="nav-link" data-aos="fade-up" href="#work">Work</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#about">About</a>
@@ -64,11 +64,13 @@
     <div class="row">
       <div class="col-lg-8">
 
-        <h1 class="display-4 fw-bold">I'M A <span class="text-brand">PROGRAMMER & WEB DEVELOPER</span> FROM DHAKA,BANGLADESH
+        <h1 class="display-4 fw-bold"data-aos="fade-up">I'M A <span class="text-brand">PROGRAMMER & WEB DEVELOPER</span> FROM DHAKA,BANGLADESH
         </h1>
-        <P class="lead mt-2 mb-4">I am Samsul Arefin ,And I craft high-performence and delightful experiences tailored and conversion-focused</P>
-      <a href="#" class="btn btn-brand me-3 ">Explore My Works</a>
+        <P class="lead mt-2 mb-4" data-aos="fade-up" data-aos-delay="300">I am Samsul Arefin ,And I craft high-performence and delightful experiences tailored and conversion-focused</P>
+      <div data-aos="fade-up" data-aos-delay="600">
+        <a href="#" class="btn btn-brand me-3 ">Explore My Works</a>
       <a href="#" class="link-custom">call: (+880) 1783076970</a>
+      </div>
       </div>
     </div>
   </div>
@@ -79,19 +81,39 @@
 <section id="services" class="full-height px-lg-5">
 <div class="container">
 
-  <div class="row">
+  <div class="row" data-aos="fade-up">
     <div class="col-rg-8">
       <h6 class="text-brand">SERVICES</h6>
-      <h1>Services That I Provide</h1>
+      <h1 class="mt-2 mb-4">Services That I Provide</h1>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-4">
-      <div class="service p-4 bg-base rounded-4 shadow-effect">
-        <div class="iconbox">
+    <div class="col-md-4" data-aos="fade-up">
+      <div  class="service p-4 mb-2 bg-base rounded-4 shadow-effect">
+        <div class="iconbox p-3 rounded-4">
           <i class="fa-solid fa-feather-pointed"></i>
         </div>
-        <h4>Web Designing</h4>
+        <h5 class="mt-4 mb-2">Web Designer</h5>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias eius iste fugiat iusto.</p>
+        <a href="#" class="link-custom">read more</a>
+      </div>
+    </div>
+    <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+      <div class="service p-4 mb-2 bg-base rounded-4 shadow-effect">
+        <div class="iconbox p-3 rounded-4">
+          <i class="fa-solid fa-feather-pointed"></i>
+        </div>
+        <h5 class="mt-4 mb-2">Frontend developer</h5>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias eius iste fugiat iusto.</p>
+        <a href="#" class="link-custom">read more</a>
+      </div>
+    </div>
+    <div class="col-md-4" data-aos="fade-up" data-aos-delay="600"> 
+      <div class="service p-4 bg-base rounded-4 shadow-effect">
+        <div class="iconbox p-3 rounded-4">
+          <i class="fa-solid fa-feather-pointed"></i>
+        </div>
+        <h5 class="mt-4 mb-2">Problem solver</h5>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias eius iste fugiat iusto.</p>
         <a href="#" class="link-custom">read more</a>
       </div>
@@ -105,6 +127,7 @@
 
 </div>
 <!-- content wrapper end -->
+
 
 
 

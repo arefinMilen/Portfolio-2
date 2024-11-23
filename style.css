@@ -55,6 +55,18 @@ img{
 .shadow-effect:hover{
     box-shadow: -6px 6px 0 0 var(--color-brand);
 }
+.iconbox
+{
+     height:  58px;
+     width: 58px;
+     font-size: 33px;
+     display: flex;
+     text-align: center;
+     justify-content: center;
+     background-color: var(--color-brand);
+     color: var(--color-base);
+}
+
 /* navbar  */
 
 .navbar{
@@ -69,6 +81,9 @@ img{
 }
 .navbar .nav-link:hover
 {
+    color: var(--color-brand );
+}
+.navbar .nav-link.active {
     color: var(--color-brand);
 }
 @media (min-width:992px)
