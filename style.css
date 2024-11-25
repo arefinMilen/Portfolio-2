@@ -136,3 +136,15 @@ position: relative;
 {
     width: 100%;
 }
+
+/* work */
+.card-custom .card-custom-image {
+    overflow: hidden;
+}
+.card-custom .card-custom-image img {
+transition: all .4s ease;
+}
+
+.card-custom:hover .card-custom-image img{
+    transform: scale(1.1);
+}
