@@ -170,7 +170,7 @@ transition: all .4s ease;
 
 /* footer  */
  
-/* .social-link a{
+.social-link a{
     width: 40px;
     height: 40px;
     display: inline-flex;
@@ -179,4 +179,4 @@ transition: all .4s ease;
     font-size: 24px;
     background-color: var(--color-base);
     border-radius: 100px;
-} */
+}
