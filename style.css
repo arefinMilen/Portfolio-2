@@ -91,13 +91,13 @@ img{
     .navbar {
         min-height: 100vh;
         width: var(--sidbar-width);
-        background:linear-gradient(red,red),url(
+        background:linear-gradient(rgba(3,63,71,0.9),rgba(3,63,71,0.9)),url(/Images/sidebar-img.jpg
         );
        background-size: cover;
        background-position: center;
 
     }
-    .nabar-brand img {
+    .navbar-brand img {
         border:8px solid var(--color-brand) ;
     }
     #content-dropper{
