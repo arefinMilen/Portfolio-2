@@ -107,7 +107,7 @@ img{
 
 @media (max-width:421px) {
     .container .number{
-margin-bottom: 15px;
+      margin-bottom: 15px;
     }
        }
 
@@ -120,13 +120,13 @@ margin-bottom: 15px;
     border-color: var(--color-brand);
 }
 .btn-brand:hover,.btn-brand:focus{
-background-color: var(--color-brand2);
-color: var(--color-base);
-border-color: var(--color-brand2);
+          background-color: var(--color-brand2);
+          color: var(--color-base);
+          border-color: var(--color-brand2);
 }
 .link-custom{
-font-weight: 700;
-position: relative;
+        font-weight: 700;
+        position: relative;
 }
 .link-custom::after {
     content: "";
@@ -145,10 +145,10 @@ position: relative;
 
 /* work */
 .card-custom .card-custom-image {
-    overflow: hidden;
+     overflow: hidden;
 }
 .card-custom .card-custom-image img {
-transition: all .4s ease;
+     transition: all .4s ease;
 }
 
 .card-custom:hover .card-custom-image img{
