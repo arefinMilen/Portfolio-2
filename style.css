@@ -105,6 +105,12 @@ img{
     }
 }
 
+@media (max-width:421px) {
+    .container .number{
+margin-bottom: 15px;
+    }
+       }
+
 .btn{
     padding: 12px 28px;
     font-weight: 700;
