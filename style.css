@@ -105,15 +105,34 @@ img{
     }
 }
 
-@media (max-width:421px) {
+@media (max-width:422px) {
     .container .number{
       margin-bottom: 15px;
     }
+    div .btn,.number
+    {
+        padding: 8px 18px;
+    }
+    .btn,.phone {
+        font-size: 14px;
+    }
+  
        }
-
+     
+   @media (max-width:376px) {
+    div .btn,.number
+    {
+        padding: 8px 18px;
+    }
+    .btn,.phone {
+        font-size: 14px;
+    }
+   }
+    
 .btn{
     padding: 12px 28px;
     font-weight: 700;
+    
 }
 .btn-brand{
     background-color: var(--color-brand);
