@@ -119,16 +119,29 @@ img{
   
        }
      
-   @media (max-width:376px) {
+   @media (max-width:362px) {
     div .btn,.number
     {
-        padding: 8px 18px;
+        padding: 8px 10px;
     }
     .btn,.phone {
-        font-size: 14px;
+        font-size: 13px;
     }
    }
-    
+    @media (max-width:326px){
+        .action-container {
+            display: flex;  
+            align-items: center; 
+            justify-content: flex-start; 
+            gap: 10px;  
+            flex-wrap: nowrap; /* Prevent items from wrapping */
+        }
+        
+        .btn,
+        .phone {
+            white-space: nowrap; /* Prevent text from wrapping */
+        }
+    }
 .btn{
     padding: 12px 28px;
     font-weight: 700;
