@@ -218,3 +218,6 @@ img{
     background-color: var(--color-base);
     border-radius: 100px;
 }
+.visitor {
+    width: 100px;
+}
