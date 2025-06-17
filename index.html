@@ -283,23 +283,23 @@
         <h1 class="mt-2 mb-4">Interested in working together? Let's talk</h1>
       </div>
       <div class="col-lg-8" data-aos="fade-up" data-aos-delay="300">
-        <form action="#" class="row g-lg-3 gy-3">
-          <div class="form-group col-md-6">
-            <input type="text" class="form-control" placeholder="Enter your name">
-          </div>
-          <div class="form-group col-md-6">
-            <input type="email" class="form-control" placeholder="Enter your email">
-          </div>
-          <div class="form-group col-12">
-            <input type="text" class="form-control" placeholder="Enter your subject">
-          </div>
-          <div class="form-group col-12">
-            <textarea name="" rows="4" class="form-control" placeholder="Enter your message!!"></textarea>
-          </div>
-          <div class="form-group col-12 d-grid">
-            <button type="submit" class="btn btn-brand">Contact me</button>
-          </div>
-        </form>
+        <form id="contact-form" class="row g-lg-3 gy-3">
+  <div class="form-group col-md-6">
+    <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
+  </div>
+  <div class="form-group col-md-6">
+    <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+  </div>
+  <div class="form-group col-12">
+    <input type="text" name="subject" class="form-control" placeholder="Enter your subject" required>
+  </div>
+  <div class="form-group col-12">
+    <textarea name="message" rows="4" class="form-control" placeholder="Enter your message!!" required></textarea>
+  </div>
+  <div class="form-group col-12 d-grid">
+    <button type="submit" class="btn btn-brand">Contact me</button>
+  </div>
+</form>
       </div>
     </div>
 
@@ -345,5 +345,25 @@
      
      <!-- js file -->
     <script src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  (function(){
+    emailjs.init("JnDfEjQ-KEuyaIIXM"); // Your EmailJS public key
+  })();
+
+  document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    emailjs.sendForm(
+      "service_o56e6ky", // Your EmailJS service ID
+      "template_uddgt3a", // Your EmailJS template ID
+      this
+    ).then(function() {
+      alert('Message sent!');
+      document.getElementById('contact-form').reset();
+    }, function(error) {
+      alert('Failed to send: ' + JSON.stringify(error));
+    });
+  });
+</script>
 </body>
 </html>
