@@ -18,7 +18,7 @@ AOS.init({
 });
 // tyoed js for home section skill
 var typed=new Typed(".text-brand",{
-  strings:["WEB DEVELOPER","Frontend Developer","Programmer","Web Developer"],
+  strings:["WEB DEVELOPER","Frontend Developer","Programmer","Software Developer"],
   typedSpeed:80,
   backSpeed:85,
   loop:true
