@@ -4,7 +4,87 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { personalDetails } from '@/data/portfolioData';
-import { ArrowRight, PhoneCall, Code2, Sparkles, Download, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, PhoneCall, Sparkles } from 'lucide-react';
+
+const roles = [
+  'SOFTWARE ENGINEER',
+  'AGENTIC AI SPECIALIST',
+  'FULL-STACK DEVELOPER',
+];
+
+const TypewriterHeadline: React.FC = () => {
+  const [roleIndex, setRoleIndex] = React.useState(0);
+  const [currentText, setCurrentText] = React.useState('');
+  const [isDeleting, setIsDeleting] = React.useState(false);
+
+  React.useEffect(() => {
+    const fullText = roles[roleIndex];
+    const typingSpeed = isDeleting ? 35 : 75;
+
+    if (!isDeleting && currentText === fullText) {
+      const timeout = setTimeout(() => setIsDeleting(true), 2200);
+      return () => clearTimeout(timeout);
+    } else if (isDeleting && currentText === '') {
+      setIsDeleting(false);
+      setRoleIndex((prev) => (prev + 1) % roles.length);
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      setCurrentText(
+        isDeleting
+          ? fullText.substring(0, currentText.length - 1)
+          : fullText.substring(0, currentText.length + 1)
+      );
+    }, typingSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [currentText, isDeleting, roleIndex]);
+
+  return (
+    <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.2] mb-6 min-h-[4rem] sm:min-h-[5rem]">
+      I'M A{' '}
+      <span className="text-gradient-cyan border-b-2 border-brand-cyan/60 pb-1">
+        {currentText}
+      </span>
+      <span className="inline-block w-1 h-7 sm:h-11 bg-brand-cyan ml-1.5 align-middle animate-pulse" />
+    </h1>
+  );
+};
+
+const AnimatedCounter: React.FC<{ value: string; label: string }> = ({ value, label }) => {
+  const [count, setCount] = React.useState(0);
+  const numericMatch = value.match(/(\d+)/);
+  const targetNumber = numericMatch ? parseInt(numericMatch[0], 10) : 0;
+  const suffix = value.replace(/\d+/g, '');
+
+  React.useEffect(() => {
+    let startTimestamp: number | null = null;
+    const duration = 2000;
+
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const easeOutProgress = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(easeOutProgress * targetNumber));
+
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+
+    window.requestAnimationFrame(step);
+  }, [targetNumber]);
+
+  return (
+    <div className="bg-white/5 rounded-xl p-3 border border-white/5 text-center hover:border-brand-cyan/40 transition-all">
+      <div className="text-xl sm:text-2xl font-extrabold text-gradient-cyan">
+        {count}{suffix}
+      </div>
+      <div className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">{label}</div>
+    </div>
+  );
+};
 
 export const HeroSection: React.FC = () => {
   return (
@@ -35,10 +115,8 @@ export const HeroSection: React.FC = () => {
               </span>
             </motion.div>
 
-            {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15] mb-6">
-              I'M A <span className="text-gradient-cyan">SOFTWARE ENGINEER</span> & <span className="text-gradient-violet">AGENTIC AI SPECIALIST</span>
-            </h1>
+            {/* Typewriter Main Headline */}
+            <TypewriterHeadline />
 
             {/* Bio Paragraph */}
             <p className="text-lg text-slate-300 leading-relaxed mb-8 max-w-2xl">
@@ -106,13 +184,10 @@ export const HeroSection: React.FC = () => {
                 <h3 className="text-xl font-bold text-white mb-1">{personalDetails.name}</h3>
                 <p className="text-sm text-brand-cyan font-mono mb-4">{personalDetails.role}</p>
 
-                {/* Quick Stats Grid */}
+                {/* Animated Quick Stats Grid */}
                 <div className="grid grid-cols-2 gap-3 w-full pt-4 border-t border-white/10">
                   {personalDetails.stats.map((stat) => (
-                    <div key={stat.label} className="bg-white/5 rounded-xl p-3 border border-white/5 text-center">
-                      <div className="text-xl font-extrabold text-gradient-cyan">{stat.value}</div>
-                      <div className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">{stat.label}</div>
-                    </div>
+                    <AnimatedCounter key={stat.label} value={stat.value} label={stat.label} />
                   ))}
                 </div>
               </div>
