@@ -3,7 +3,7 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import GitHubCalendar from 'react-github-calendar';
+import { GitHubCalendar } from 'react-github-calendar';
 import { Github, Star, GitFork, BookOpen, Users, ExternalLink, RefreshCw } from 'lucide-react';
 
 const githubTheme = {
