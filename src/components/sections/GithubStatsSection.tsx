@@ -3,7 +3,13 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
+import GitHubCalendar from 'react-github-calendar';
 import { Github, Star, GitFork, BookOpen, Users, ExternalLink, RefreshCw } from 'lucide-react';
+
+const githubTheme = {
+  light: ['#1e293b', '#004c6d', '#0084b4', '#00c5ee', '#00f2fe'],
+  dark: ['#0f172a', '#0d324d', '#006699', '#00b4d8', '#00f2fe'],
+};
 
 interface GitHubUser {
   login: string;
@@ -139,6 +145,29 @@ export const GithubStatsSection: React.FC = () => {
               </div>
             </div>
           )}
+
+          {/* GitHub Contribution Graph */}
+          <div className="mb-10 p-6 rounded-2xl bg-white/5 border border-white/10 flex flex-col items-center justify-center overflow-hidden">
+            <div className="flex items-center justify-between w-full mb-4">
+              <h4 className="text-xs font-mono text-cyan-300 uppercase tracking-widest flex items-center gap-2">
+                <Github className="w-4 h-4 text-brand-cyan" />
+                <span>GitHub Contribution Calendar</span>
+              </h4>
+              <span className="text-xs font-mono text-slate-400 hidden sm:inline">
+                Yearly Contributions for @arefinMilen
+              </span>
+            </div>
+            <div className="w-full flex justify-center overflow-x-auto py-2 text-slate-300 text-xs">
+              <GitHubCalendar
+                username="arefinMilen"
+                theme={githubTheme}
+                colorScheme="dark"
+                fontSize={12}
+                blockSize={13}
+                blockMargin={4}
+              />
+            </div>
+          </div>
 
           {/* Repositories Cards Grid */}
           <div>
