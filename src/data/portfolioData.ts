@@ -11,6 +11,7 @@ export const personalDetails = {
   linkedin: 'https://www.linkedin.com/in/samsul-arefin-3a7804228/',
   youtube: 'https://www.youtube.com/@sam_click',
   facebook: 'https://m.facebook.com/samsularefinmilen1205/',
+  appointmentUrl: 'https://calendar.app.google/RUKbCrCxPHgh2qYd7',
   resumeUrl: '#',
   avatar: '/Images/profile-formal.jpg',
   stats: [

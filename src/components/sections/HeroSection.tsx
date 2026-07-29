@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { personalDetails } from '@/data/portfolioData';
-import { ArrowRight, PhoneCall, Sparkles } from 'lucide-react';
+import { ArrowRight, PhoneCall, Sparkles, Calendar } from 'lucide-react';
 
 const roles = [
   'SOFTWARE ENGINEER',
@@ -126,8 +126,18 @@ export const HeroSection: React.FC = () => {
             {/* Action Buttons */}
             <div className="flex flex-wrap items-center gap-4 w-full sm:w-auto mb-10">
               <a
-                href="#work"
+                href={personalDetails.appointmentUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-gradient-to-r from-brand-cyan to-cyan-400 text-dark-bg font-bold text-sm shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-[1.02] transition-all flex items-center justify-center gap-2 group"
+              >
+                <Calendar className="w-4 h-4 text-dark-bg group-hover:rotate-12 transition-transform" />
+                <span>Book Appointment</span>
+              </a>
+
+              <a
+                href="#work"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-full glass-card hover:bg-white/10 text-slate-200 font-semibold text-sm flex items-center justify-center gap-2 border border-white/10 group"
               >
                 <span>Explore My Works</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -138,7 +148,7 @@ export const HeroSection: React.FC = () => {
                 className="w-full sm:w-auto px-6 py-3.5 rounded-full glass-card hover:bg-white/10 text-slate-200 font-semibold text-sm flex items-center justify-center gap-2 border border-white/10"
               >
                 <PhoneCall className="w-4 h-4 text-brand-cyan" />
-                <span>Call: {personalDetails.phone}</span>
+                <span>Call</span>
               </a>
             </div>
 

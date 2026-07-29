@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import { setActiveSection, toggleMobileMenu, setMobileMenuOpen } from '@/store/uiSlice';
 import { personalDetails } from '@/data/portfolioData';
-import { Menu, X, Code2, Sparkles, Send, PhoneCall } from 'lucide-react';
+import { Menu, X, Code2, Sparkles, Send, PhoneCall, Calendar } from 'lucide-react';
 
 const navItems = [
   { label: 'Home', href: '#home' },
@@ -121,11 +121,13 @@ export const Navbar: React.FC = () => {
         {/* Right CTA */}
         <div className="hidden lg:flex items-center gap-3">
           <a
-            href={`tel:${personalDetails.phone.replace(/[^0-9+]/g, '')}`}
-            className="flex items-center gap-2 text-xs font-mono text-slate-300 hover:text-brand-cyan transition-colors px-3 py-2 rounded-lg border border-white/5 bg-white/5"
+            href={personalDetails.appointmentUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-xs font-semibold text-slate-200 hover:text-brand-cyan transition-all px-3.5 py-2 rounded-full border border-brand-cyan/40 bg-brand-cyan/10 hover:bg-brand-cyan/20"
           >
-            <PhoneCall className="w-3.5 h-3.5 text-brand-cyan" />
-            <span>{personalDetails.phone}</span>
+            <Calendar className="w-3.5 h-3.5 text-brand-cyan" />
+            <span>Book Meeting</span>
           </a>
           <a
             href="#contact"
@@ -133,7 +135,7 @@ export const Navbar: React.FC = () => {
               e.preventDefault();
               handleNavClick('#contact');
             }}
-            className="relative group px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide text-dark-bg bg-brand-cyan hover:bg-cyan-300 transition-all shadow-lg shadow-cyan-500/25 flex items-center gap-2"
+            className="relative group px-4 py-2 rounded-full text-xs font-semibold tracking-wide text-dark-bg bg-brand-cyan hover:bg-cyan-300 transition-all shadow-lg shadow-cyan-500/25 flex items-center gap-1.5"
           >
             <Send className="w-3.5 h-3.5" />
             <span>Let's Talk</span>
@@ -175,6 +177,15 @@ export const Navbar: React.FC = () => {
             );
           })}
           <div className="pt-2 border-t border-white/10 flex flex-col gap-2">
+            <a
+              href={personalDetails.appointmentUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-brand-violet to-purple-600 text-white font-semibold text-center flex items-center justify-center gap-2 shadow-lg shadow-purple-500/20 border border-purple-400/30"
+            >
+              <Calendar className="w-4 h-4 text-cyan-300" />
+              <span>Book Appointment</span>
+            </a>
             <a
               href="#contact"
               onClick={(e) => {

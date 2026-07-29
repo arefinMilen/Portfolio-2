@@ -8,7 +8,7 @@ import { useMutation } from '@tanstack/react-query';
 import emailjs from '@emailjs/browser';
 import { toast } from 'sonner';
 import { personalDetails } from '@/data/portfolioData';
-import { Send, Phone, Mail, MapPin, Loader2, CheckCircle2 } from 'lucide-react';
+import { Send, Phone, Mail, MapPin, Loader2, CheckCircle2, Calendar } from 'lucide-react';
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -84,7 +84,25 @@ export const ContactSection: React.FC = () => {
           {/* Left Column: Contact Cards */}
           <div className="lg:col-span-5 space-y-6">
             <div className="glass-panel rounded-3xl p-6 sm:p-8 border border-white/10 space-y-6">
-              <h3 className="text-xl font-bold text-white mb-2">Contact Details</h3>
+              <h3 className="text-1xl font-bold text-white mb-2">Direct Contact & Scheduling</h3>
+
+              {/* Google Calendar Appointment Card */}
+              <a
+                href={personalDetails.appointmentUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-brand-violet/20 to-purple-600/20 border border-brand-violet/40 hover:border-brand-cyan transition-all group shadow-lg shadow-purple-950/30"
+              >
+                <div className="w-12 h-12 rounded-xl bg-brand-violet/30 border border-brand-violet/50 flex items-center justify-center text-cyan-300 group-hover:scale-110 group-hover:rotate-6 transition-transform">
+                  <Calendar className="w-6 h-6 text-cyan-300" />
+                </div>
+                <div>
+                  <div className="text-xs font-mono text-purple-300 font-semibold uppercase tracking-wider">Instant Scheduling</div>
+                  <div className="text-sm font-bold text-white group-hover:text-brand-cyan transition-colors flex items-center gap-1.5">
+                    <span>Book 1-on-1 Google Meeting</span>
+                  </div>
+                </div>
+              </a>
 
               {/* Phone Card */}
               <a
