@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { Github, Star, GitFork, BookOpen, Users, ExternalLink, RefreshCw } from 'lucide-react';
 
 const GitHubCalendar = dynamic(
-  () => import('react-github-calendar').then((mod) => (mod.GitHubCalendar || mod.default || mod) as any),
+  () => import('react-github-calendar').then((mod) => mod.GitHubCalendar),
   {
     ssr: false,
     loading: () => <div className="h-32 w-full bg-white/5 animate-pulse rounded-xl" />,
