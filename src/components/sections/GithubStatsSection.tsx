@@ -1,10 +1,18 @@
 'use client';
 
 import React from 'react';
+import dynamic from 'next/dynamic';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import { GitHubCalendar } from 'react-github-calendar';
 import { Github, Star, GitFork, BookOpen, Users, ExternalLink, RefreshCw } from 'lucide-react';
+
+const GitHubCalendar = dynamic(
+  () => import('react-github-calendar').then((mod) => (mod.GitHubCalendar || mod.default || mod) as any),
+  {
+    ssr: false,
+    loading: () => <div className="h-32 w-full bg-white/5 animate-pulse rounded-xl" />,
+  }
+);
 
 const githubTheme = {
   light: ['#1e293b', '#004c6d', '#0084b4', '#00c5ee', '#00f2fe'],
