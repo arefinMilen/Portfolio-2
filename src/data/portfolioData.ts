@@ -2,7 +2,7 @@ import { Project, SkillCategory, ExperienceItem, LeadershipItem, ServiceItem, Ce
 
 export const personalDetails = {
   name: 'Samsul Arefin',
-  role: 'Software Engineer | Full-Stack & Agentic AI Workflows',
+  role: 'Software Engineer | Building Scalable Software & Custom AI Agents for 10x business growth',
   location: 'Dhaka, Bangladesh',
   bio: 'Software Engineer specializing in full-stack development (Next.js, TypeScript, Node.js) and Agentic AI workflows. Experienced in building autonomous AI integrations using Claude Agent, Antigravity, and Cursor AI with MCP tool calling and multi-LLM orchestration.',
   phone: '+880 1783076970',
