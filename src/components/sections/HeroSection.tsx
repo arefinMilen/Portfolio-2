@@ -44,7 +44,7 @@ const TypewriterHeadline: React.FC = () => {
   return (
     <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.2] mb-6 min-h-[4rem] sm:min-h-[5rem]">
       I'M A{' '}
-      <span className="text-gradient-cyan border-b-2 border-brand-cyan/60 pb-1">
+      <span className="text-gradient-cyan">
         {currentText}
       </span>
       <span className="inline-block w-1 h-7 sm:h-11 bg-brand-cyan ml-1.5 align-middle animate-pulse" />
@@ -119,7 +119,7 @@ export const HeroSection: React.FC = () => {
             <TypewriterHeadline />
 
             {/* Bio Paragraph */}
-            <p className="text-lg text-slate-300 leading-relaxed mb-8 max-w-2xl">
+            <p className="text-lg text-slate-300 leading-relaxed mb-8 max-w-2xl text-justify">
               {personalDetails.bio}
             </p>
 
