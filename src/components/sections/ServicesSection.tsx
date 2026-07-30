@@ -44,18 +44,19 @@ export const ServicesSection: React.FC = () => {
               className="glass-card rounded-3xl p-8 relative flex flex-col justify-between group"
             >
               <div>
-                {/* Icon Container */}
-                <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:border-brand-cyan/50 transition-all shadow-lg">
-                  {iconMap[service.icon] || <Sparkles className="w-6 h-6 text-brand-cyan" />}
+                {/* Icon & Title Header Row */}
+                <div className="flex items-center gap-3.5 mb-5">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:border-brand-cyan/50 transition-all shadow-lg">
+                    {iconMap[service.icon] || <Sparkles className="w-6 h-6 text-brand-cyan" />}
+                  </div>
+
+                  <h3 className="text-base sm:text-lg lg:text-xl font-bold text-white group-hover:text-brand-cyan transition-colors leading-tight">
+                    {service.title}
+                  </h3>
                 </div>
 
-                {/* Title */}
-                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-brand-cyan transition-colors">
-                  {service.title}
-                </h3>
-
                 {/* Description */}
-                <p className="text-slate-300 text-sm leading-relaxed mb-6">
+                <p className="text-slate-300 text-sm leading-relaxed mb-6 text-justify">
                   {service.fullDesc}
                 </p>
 
