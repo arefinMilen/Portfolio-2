@@ -22,12 +22,25 @@ export const metadata: Metadata = {
     'Dhaka Bangladesh',
   ],
   authors: [{ name: personalDetails.name }],
+  icons: {
+    icon: '/Images/profile-formal.jpg',
+    shortcut: '/Images/profile-formal.jpg',
+    apple: '/Images/profile-formal.jpg',
+  },
   openGraph: {
     title: `${personalDetails.name} | Web Developer Portfolio`,
     description: personalDetails.bio,
     type: 'website',
     locale: 'en_US',
     siteName: `${personalDetails.name} Portfolio`,
+    images: [
+      {
+        url: personalDetails.avatar,
+        width: 800,
+        height: 800,
+        alt: personalDetails.name,
+      },
+    ],
   },
 };
 
