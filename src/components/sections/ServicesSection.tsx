@@ -21,6 +21,38 @@ export const ServicesSection: React.FC = () => {
   const scrollRef = React.useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = React.useState(false);
 
+  // Mouse Drag state for desktop swipe
+  const isDragging = React.useRef(false);
+  const startX = React.useRef(0);
+  const scrollLeftPos = React.useRef(0);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    isDragging.current = true;
+    setIsPaused(true);
+    if (scrollRef.current) {
+      startX.current = e.pageX - scrollRef.current.offsetLeft;
+      scrollLeftPos.current = scrollRef.current.scrollLeft;
+    }
+  };
+
+  const handleMouseLeave = () => {
+    isDragging.current = false;
+    setIsPaused(false);
+  };
+
+  const handleMouseUp = () => {
+    isDragging.current = false;
+    setIsPaused(false);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging.current || !scrollRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX.current) * 1.8;
+    scrollRef.current.scrollLeft = scrollLeftPos.current - walk;
+  };
+
   const handleManualScroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
       const scrollAmount = direction === 'left' ? -320 : 320;
@@ -66,11 +98,16 @@ export const ServicesSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Infinite Horizontal Slider Container */}
+      {/* Infinite Horizontal Slider Container with Touch Swipe & Mouse Drag */}
       <div 
-        className="relative w-full overflow-hidden"
+        className="relative w-full overflow-hidden cursor-grab active:cursor-grabbing select-none"
         onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
+        onMouseLeave={handleMouseLeave}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onMouseMove={handleMouseMove}
+        onTouchStart={() => setIsPaused(true)}
+        onTouchEnd={() => setIsPaused(false)}
       >
         {/* Ambient Side Fade Overlays */}
         <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-dark-bg via-dark-bg/80 to-transparent z-20" />
@@ -78,7 +115,7 @@ export const ServicesSection: React.FC = () => {
 
         <div
           ref={scrollRef}
-          className="flex overflow-x-auto no-scrollbar scroll-smooth pb-4 pt-2"
+          className="flex overflow-x-auto no-scrollbar scroll-smooth pb-4 pt-2 touch-pan-x"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           <motion.div
