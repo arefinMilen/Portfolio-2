@@ -445,6 +445,14 @@ export const experienceData: ExperienceItem[] = [
 
 export const certificationsData: CertificationItem[] = [
   {
+    id: 'cert-claude-code-101',
+    title: 'Claude Code 101',
+    issuer: 'Anthropic Education',
+    period: 'Issued Aug 2026',
+    credentialUrl: 'https://verify.skilljar.com/c/486dggwe2k5z',
+    skills: ['Claude Agent', 'AI Tool Calling', 'Prompt Engineering', 'Anthropic Ecosystem'],
+  },
+  {
     id: 'cert-nsda',
     title: 'National Skills Certificate on Web Design and Development for Freelancing, Level-3',
     issuer: 'National Skills Development Authority (NSDA)',

@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { experienceData, certificationsData } from '@/data/portfolioData';
-import { GraduationCap, Briefcase, Calendar, MapPin, Award, CheckCircle2 } from 'lucide-react';
+import { GraduationCap, Briefcase, Calendar, MapPin, Award, CheckCircle2, ExternalLink } from 'lucide-react';
 
 export const ExperienceSection: React.FC = () => {
   const educationItems = experienceData.filter((item) => item.type === 'education');
@@ -177,15 +177,28 @@ export const ExperienceSection: React.FC = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {certificationsData.map((cert) => (
               <div key={cert.id} className="glass-card rounded-2xl p-6 border border-white/10 flex flex-col justify-between">
                 <div>
                   <div className="flex items-start justify-between gap-2 mb-3">
                     <h4 className="text-base font-bold text-white leading-snug">{cert.title}</h4>
-                    <span className="px-2.5 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-[11px] font-mono text-amber-300 shrink-0">
-                      Verified
-                    </span>
+                    {cert.credentialUrl ? (
+                      <a
+                        href={cert.credentialUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-2.5 py-1 rounded bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-[11px] font-mono text-amber-300 shrink-0 flex items-center gap-1 transition-colors"
+                        title="Verify Certificate"
+                      >
+                        <span>Verify</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    ) : (
+                      <span className="px-2.5 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-[11px] font-mono text-amber-300 shrink-0">
+                        Verified
+                      </span>
+                    )}
                   </div>
                   <p className="text-xs font-semibold text-brand-cyan mb-2">{cert.issuer}</p>
                   <p className="text-xs font-mono text-slate-400 mb-4">{cert.period}</p>

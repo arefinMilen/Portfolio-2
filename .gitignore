@@ -35,3 +35,5 @@ walkthrough.md
 # Resume & Document Source Files
 *.docx
 
+# Build Info
+*.tsbuildinfo
