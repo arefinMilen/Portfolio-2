@@ -8,7 +8,8 @@ import { useMutation } from '@tanstack/react-query';
 import emailjs from '@emailjs/browser';
 import { toast } from 'sonner';
 import { personalDetails } from '@/data/portfolioData';
-import { Send, Phone, Mail, MapPin, Loader2, CheckCircle2, Calendar } from 'lucide-react';
+import { useTranslation } from '@/i18n/useTranslation';
+import { Send, Phone, Mail, MapPin, Loader2, Calendar } from 'lucide-react';
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -38,6 +39,8 @@ const sendEmailApi = async (data: ContactFormValues) => {
 };
 
 export const ContactSection: React.FC = () => {
+  const { t, isBn } = useTranslation();
+
   const {
     register,
     handleSubmit,
@@ -50,11 +53,11 @@ export const ContactSection: React.FC = () => {
   const mutation = useMutation({
     mutationFn: sendEmailApi,
     onSuccess: () => {
-      toast.success('Message sent successfully! Samsul will reach out to you soon.');
+      toast.success(t.contact.successToast);
       reset();
     },
     onError: (error: any) => {
-      toast.error('Failed to send message: ' + (error?.text || error?.message || 'Unknown error'));
+      toast.error(t.contact.errorToast + ' (' + (error?.text || error?.message || 'Error') + ')');
     },
   });
 
@@ -69,13 +72,13 @@ export const ContactSection: React.FC = () => {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-xs font-mono tracking-widest text-brand-cyan uppercase bg-brand-cyan/10 px-3.5 py-1.5 rounded-full border border-brand-cyan/20">
-            GET IN TOUCH
+            {isBn ? 'যোগাযোগ' : 'GET IN TOUCH'}
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-4 tracking-tight">
-            Interested in Working Together? Let's Talk
+            {t.contact.title}
           </h2>
           <p className="text-slate-400 mt-3 text-base">
-            Have a web app project, SaaS idea, frontend consultation, or internship opportunity? Drop me a message below.
+            {t.contact.subtitle}
           </p>
         </div>
 
@@ -84,7 +87,7 @@ export const ContactSection: React.FC = () => {
           {/* Left Column: Contact Cards */}
           <div className="lg:col-span-5 space-y-6">
             <div className="glass-panel rounded-3xl p-6 sm:p-8 border border-white/10 space-y-6">
-              <h3 className="text-1xl font-bold text-white mb-2">Direct Contact & Scheduling</h3>
+              <h3 className="text-1xl font-bold text-white mb-2">{t.contact.contactInfo}</h3>
 
               {/* Google Calendar Appointment Card */}
               <a
@@ -97,9 +100,9 @@ export const ContactSection: React.FC = () => {
                   <Calendar className="w-6 h-6 text-cyan-300" />
                 </div>
                 <div>
-                  <div className="text-xs font-mono text-purple-300 font-semibold uppercase tracking-wider">Instant Scheduling</div>
+                  <div className="text-xs font-mono text-purple-300 font-semibold uppercase tracking-wider">{isBn ? 'তাৎক্ষণিক শিডিউল' : 'Instant Scheduling'}</div>
                   <div className="text-sm font-bold text-white group-hover:text-brand-cyan transition-colors flex items-center gap-1.5">
-                    <span>Book 1-on-1 Google Meeting</span>
+                    <span>{t.nav.bookMeeting}</span>
                   </div>
                 </div>
               </a>
@@ -113,7 +116,7 @@ export const ContactSection: React.FC = () => {
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-xs font-mono text-slate-400">Phone Number</div>
+                  <div className="text-xs font-mono text-slate-400">{t.contact.phoneLabel}</div>
                   <div className="text-sm font-semibold text-white group-hover:text-brand-cyan transition-colors">
                     {personalDetails.phone}
                   </div>
@@ -129,7 +132,7 @@ export const ContactSection: React.FC = () => {
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-xs font-mono text-slate-400">Email Address</div>
+                  <div className="text-xs font-mono text-slate-400">{t.contact.emailLabel}</div>
                   <div className="text-sm font-semibold text-white group-hover:text-cyan-300 transition-colors">
                     {personalDetails.email}
                   </div>
@@ -142,9 +145,9 @@ export const ContactSection: React.FC = () => {
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-xs font-mono text-slate-400">Location</div>
+                  <div className="text-xs font-mono text-slate-400">{t.contact.locationLabel}</div>
                   <div className="text-sm font-semibold text-white">
-                    {personalDetails.location}
+                    {t.contact.locationValue}
                   </div>
                 </div>
               </div>
@@ -162,12 +165,12 @@ export const ContactSection: React.FC = () => {
                 {/* Name */}
                 <div>
                   <label className="block text-xs font-mono text-slate-300 mb-2">
-                    Your Name *
+                    {t.contact.name} *
                   </label>
                   <input
                     type="text"
                     {...register('name')}
-                    placeholder="Samsul Arefin"
+                    placeholder={t.contact.namePlaceholder}
                     className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-cyan transition-colors"
                   />
                   {errors.name && (
@@ -180,12 +183,12 @@ export const ContactSection: React.FC = () => {
                 {/* Email */}
                 <div>
                   <label className="block text-xs font-mono text-slate-300 mb-2">
-                    Your Email *
+                    {t.contact.email} *
                   </label>
                   <input
                     type="email"
                     {...register('email')}
-                    placeholder="example@gmail.com"
+                    placeholder={t.contact.emailPlaceholder}
                     className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-cyan transition-colors"
                   />
                   {errors.email && (
@@ -199,12 +202,12 @@ export const ContactSection: React.FC = () => {
               {/* Subject */}
               <div>
                 <label className="block text-xs font-mono text-slate-300 mb-2">
-                  Subject *
+                  {t.contact.subject} *
                 </label>
                 <input
                   type="text"
                   {...register('subject')}
-                  placeholder="Web Project Inquiry / Partnership"
+                  placeholder={t.contact.subjectPlaceholder}
                   className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-cyan transition-colors"
                 />
                 {errors.subject && (
@@ -217,12 +220,12 @@ export const ContactSection: React.FC = () => {
               {/* Message */}
               <div>
                 <label className="block text-xs font-mono text-slate-300 mb-2">
-                  Your Message *
+                  {t.contact.message} *
                 </label>
                 <textarea
                   rows={5}
                   {...register('message')}
-                  placeholder="Tell me about your project requirements or how I can help..."
+                  placeholder={t.contact.messagePlaceholder}
                   className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-cyan transition-colors"
                 />
                 {errors.message && (
@@ -241,12 +244,12 @@ export const ContactSection: React.FC = () => {
                 {mutation.isPending ? (
                   <>
                     <Loader2 className="w-5 h-5 animate-spin" />
-                    <span>Sending Message...</span>
+                    <span>{t.contact.sendingButton}</span>
                   </>
                 ) : (
                   <>
                     <Send className="w-4 h-4" />
-                    <span>Send Message Now</span>
+                    <span>{t.contact.sendButton}</span>
                   </>
                 )}
               </button>

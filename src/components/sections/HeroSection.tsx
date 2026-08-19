@@ -4,21 +4,29 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { personalDetails } from '@/data/portfolioData';
+import { useTranslation } from '@/i18n/useTranslation';
 import { ArrowRight, PhoneCall, Sparkles, Calendar } from 'lucide-react';
 
-const roles = [
+const rolesEn = [
   'SOFTWARE ENGINEER',
   'AGENTIC AI SPECIALIST',
   'FULL-STACK DEVELOPER',
 ];
 
-const TypewriterHeadline: React.FC = () => {
+const rolesBn = [
+  'সফটওয়্যার ইঞ্জিনিয়ার',
+  'এজেন্টিক এআই স্পেশালিস্ট',
+  'ফুল-স্ট্যাক ডেভেলপার',
+];
+
+const TypewriterHeadline: React.FC<{ isBn: boolean }> = ({ isBn }) => {
+  const roles = isBn ? rolesBn : rolesEn;
   const [roleIndex, setRoleIndex] = React.useState(0);
   const [currentText, setCurrentText] = React.useState('');
   const [isDeleting, setIsDeleting] = React.useState(false);
 
   React.useEffect(() => {
-    const fullText = roles[roleIndex];
+    const fullText = roles[roleIndex % roles.length];
     const typingSpeed = isDeleting ? 35 : 75;
 
     if (!isDeleting && currentText === fullText) {
@@ -39,11 +47,11 @@ const TypewriterHeadline: React.FC = () => {
     }, typingSpeed);
 
     return () => clearTimeout(timeout);
-  }, [currentText, isDeleting, roleIndex]);
+  }, [currentText, isDeleting, roleIndex, roles]);
 
   return (
     <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.2] mb-6 min-h-[4rem] sm:min-h-[5rem]">
-      I'M A{' '}
+      {isBn ? 'আমি একজন ' : "I'M A "}
       <span className="text-gradient-cyan">
         {currentText}
       </span>
@@ -87,6 +95,15 @@ const AnimatedCounter: React.FC<{ value: string; label: string }> = ({ value, la
 };
 
 export const HeroSection: React.FC = () => {
+  const { t, isBn } = useTranslation();
+
+  const statsData = [
+    { value: '2+', label: t.hero.stats.experience },
+    { value: '18+', label: t.hero.stats.projects },
+    { value: '10+', label: t.hero.stats.charity },
+    { value: '100%', label: t.hero.stats.codeQuality },
+  ];
+
   return (
     <section id="home" className="relative min-h-screen pt-32 pb-20 flex items-center justify-center overflow-hidden">
       {/* Background ambient lighting */}
@@ -111,16 +128,16 @@ export const HeroSection: React.FC = () => {
             >
               <Sparkles className="w-4 h-4 text-brand-cyan animate-pulse" />
               <span className="text-xs font-mono text-cyan-200 tracking-wide uppercase">
-                Software Engineer & Agentic AI Specialist
+                {isBn ? 'সফটওয়্যার ইঞ্জিনিয়ার ও এজেন্টিক এআই স্পেশালিস্ট' : 'Software Engineer & Agentic AI Specialist'}
               </span>
             </motion.div>
 
             {/* Typewriter Main Headline */}
-            <TypewriterHeadline />
+            <TypewriterHeadline isBn={isBn} />
 
             {/* Bio Paragraph */}
             <p className="text-lg text-slate-300 leading-relaxed mb-8 max-w-2xl text-justify">
-              {personalDetails.bio}
+              {t.hero.bio}
             </p>
 
             {/* Action Buttons */}
@@ -132,14 +149,14 @@ export const HeroSection: React.FC = () => {
                 className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-gradient-to-r from-brand-cyan to-cyan-400 text-dark-bg font-bold text-sm shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-[1.02] transition-all flex items-center justify-center gap-2 group"
               >
                 <Calendar className="w-4 h-4 text-dark-bg group-hover:rotate-12 transition-transform" />
-                <span>Book Appointment</span>
+                <span>{t.hero.bookMeeting}</span>
               </a>
 
               <a
                 href="#work"
                 className="w-full sm:w-auto px-6 py-3.5 rounded-full glass-card hover:bg-white/10 text-slate-200 font-semibold text-sm flex items-center justify-center gap-2 border border-white/10 group"
               >
-                <span>Explore My Works</span>
+                <span>{t.hero.exploreProjects}</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
 
@@ -148,13 +165,13 @@ export const HeroSection: React.FC = () => {
                 className="w-full sm:w-auto px-6 py-3.5 rounded-full glass-card hover:bg-white/10 text-slate-200 font-semibold text-sm flex items-center justify-center gap-2 border border-white/10"
               >
                 <PhoneCall className="w-4 h-4 text-brand-cyan" />
-                <span>Call</span>
+                <span>{isBn ? 'কল করুন' : 'Call'}</span>
               </a>
             </div>
 
             {/* Floating Tech Badges */}
             <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-white/10 w-full">
-              <span className="text-xs font-mono text-slate-400">CORE STACK:</span>
+              <span className="text-xs font-mono text-slate-400">{isBn ? 'মূল টেকনোলজি:' : 'CORE STACK:'}</span>
               {['Next.js App Router', 'TypeScript', 'Claude Agent', 'PostgreSQL', 'Redux Toolkit', 'TanStack Query', 'Framer Motion'].map((tech) => (
                 <span
                   key={tech}
@@ -183,7 +200,7 @@ export const HeroSection: React.FC = () => {
                 <div className="relative w-48 h-48 rounded-2xl overflow-hidden border-2 border-brand-cyan/50 shadow-xl mb-5 group">
                   <Image
                     src={personalDetails.avatar}
-                    alt={personalDetails.name}
+                    alt={t.hero.name}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                     priority
@@ -191,12 +208,12 @@ export const HeroSection: React.FC = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-dark-bg/80 via-transparent to-transparent opacity-60" />
                 </div>
 
-                <h3 className="text-xl font-bold text-white mb-1">{personalDetails.name}</h3>
-                <p className="text-sm text-brand-cyan font-mono mb-4">{personalDetails.role}</p>
+                <h3 className="text-xl font-bold text-white mb-1">{t.hero.name}</h3>
+                <p className="text-sm text-brand-cyan font-mono mb-4">{t.hero.role}</p>
 
                 {/* Animated Quick Stats Grid */}
                 <div className="grid grid-cols-2 gap-3 w-full pt-4 border-t border-white/10">
-                  {personalDetails.stats.map((stat) => (
+                  {statsData.map((stat) => (
                     <AnimatedCounter key={stat.label} value={stat.value} label={stat.label} />
                   ))}
                 </div>

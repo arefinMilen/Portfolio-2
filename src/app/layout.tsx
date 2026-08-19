@@ -8,6 +8,7 @@ import { ProjectDetailModal } from '@/components/sections/ProjectDetailModal';
 import { personalDetails } from '@/data/portfolioData';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://samsul-arefin.dev'),
   title: `${personalDetails.name} | Web Developer & Frontend Specialist`,
   description: personalDetails.bio,
   keywords: [

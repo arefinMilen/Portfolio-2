@@ -5,13 +5,22 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import { closeProjectModal } from '@/store/uiSlice';
-import { X, ExternalLink, Github, CheckCircle2, Layers, Cpu, ArrowUpRight } from 'lucide-react';
+import { useTranslation } from '@/i18n/useTranslation';
+import { X, ExternalLink, Github, CheckCircle2, Layers, ArrowUpRight } from 'lucide-react';
 
 export const ProjectDetailModal: React.FC = () => {
   const dispatch = useAppDispatch();
   const { selectedProject, isProjectModalOpen } = useAppSelector((state) => state.ui);
+  const { t, isBn } = useTranslation();
 
   if (!isProjectModalOpen || !selectedProject) return null;
+
+  const itemTrans = t.projects.items[selectedProject.id as keyof typeof t.projects.items];
+  const title = itemTrans?.title || selectedProject.title;
+  const subtitle = itemTrans?.subtitle || selectedProject.subtitle;
+  const longDescription = itemTrans?.longDescription || selectedProject.longDescription;
+  const categoryLabel = itemTrans?.categoryLabel || selectedProject.categoryLabel;
+  const keyFeatures = itemTrans?.keyFeatures || selectedProject.keyFeatures;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-xl animate-in fade-in duration-200 overflow-y-auto">
@@ -31,7 +40,7 @@ export const ProjectDetailModal: React.FC = () => {
         <div className="relative w-full h-64 sm:h-80 rounded-2xl overflow-hidden border border-white/10 mb-8 group">
           <Image
             src={selectedProject.image}
-            alt={selectedProject.title}
+            alt={title}
             fill
             className="object-cover"
           />
@@ -39,13 +48,13 @@ export const ProjectDetailModal: React.FC = () => {
           
           <div className="absolute bottom-6 left-6 right-6">
             <span className="inline-block px-3 py-1 rounded-full bg-brand-cyan/20 border border-brand-cyan/40 text-brand-cyan font-mono text-xs mb-2">
-              {selectedProject.categoryLabel}
+              {categoryLabel}
             </span>
             <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
-              {selectedProject.title}
+              {title}
             </h2>
             <p className="text-sm sm:text-base text-slate-300 mt-1 font-medium">
-              {selectedProject.subtitle}
+              {subtitle}
             </p>
           </div>
         </div>
@@ -56,21 +65,21 @@ export const ProjectDetailModal: React.FC = () => {
           {/* Long Description */}
           <div>
             <h4 className="text-xs font-mono tracking-widest text-brand-cyan uppercase mb-2">
-              OVERVIEW
+              {isBn ? 'সারসংক্ষেপ' : 'OVERVIEW'}
             </h4>
             <p className="text-sm sm:text-base leading-relaxed">
-              {selectedProject.longDescription}
+              {longDescription}
             </p>
           </div>
 
           {/* Key Features */}
-          {selectedProject.keyFeatures && (
+          {keyFeatures && (
             <div>
               <h4 className="text-xs font-mono tracking-widest text-brand-cyan uppercase mb-3">
-                KEY FEATURES & CAPABILITIES
+                {t.projects.keyFeatures}
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {selectedProject.keyFeatures.map((feature, idx) => (
+                {keyFeatures.map((feature, idx) => (
                   <div key={idx} className="flex items-start gap-2.5 bg-white/5 p-3 rounded-xl border border-white/5 text-xs text-slate-200">
                     <CheckCircle2 className="w-4 h-4 text-brand-cyan shrink-0 mt-0.5" />
                     <span>{feature}</span>
@@ -84,7 +93,7 @@ export const ProjectDetailModal: React.FC = () => {
           {selectedProject.techStackDetailed && (
             <div>
               <h4 className="text-xs font-mono tracking-widest text-brand-cyan uppercase mb-3">
-                DETAILED ARCHITECTURE & STACK
+                {t.projects.techStack}
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {selectedProject.techStackDetailed.map((stackGroup) => (
@@ -117,7 +126,7 @@ export const ProjectDetailModal: React.FC = () => {
                   className="px-6 py-3 rounded-full bg-brand-cyan text-dark-bg font-bold text-sm flex items-center gap-2 hover:bg-cyan-300 transition-colors shadow-lg shadow-cyan-500/20"
                 >
                   <ExternalLink className="w-4 h-4" />
-                  <span>Visit Live Site</span>
+                  <span>{t.projects.liveDemo}</span>
                 </a>
               )}
               {selectedProject.githubUrl && (
@@ -128,7 +137,7 @@ export const ProjectDetailModal: React.FC = () => {
                   className="px-6 py-3 rounded-full glass-card hover:bg-white/10 text-white font-semibold text-sm flex items-center gap-2 border border-white/10"
                 >
                   <Github className="w-4 h-4" />
-                  <span>View Repository</span>
+                  <span>{t.projects.viewCode}</span>
                 </a>
               )}
             </div>
@@ -139,7 +148,7 @@ export const ProjectDetailModal: React.FC = () => {
               onClick={() => dispatch(closeProjectModal())}
               className="inline-flex items-center gap-1 text-xs font-mono text-cyan-300 hover:text-white transition-colors"
             >
-              <span>Full Case Study Page</span>
+              <span>{isBn ? 'সম্পূর্ণ কেস স্টাডি পেজ' : 'Full Case Study Page'}</span>
               <ArrowUpRight className="w-4 h-4" />
             </Link>
           </div>

@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { servicesData } from '@/data/portfolioData';
+import { useTranslation } from '@/i18n/useTranslation';
 import { Sparkles, Code2, Terminal, CheckCircle2, ArrowRight, Database, Layers, Bot, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -18,6 +19,7 @@ const iconMap: Record<string, React.ReactNode> = {
 const infiniteServices = [...servicesData, ...servicesData, ...servicesData, ...servicesData];
 
 export const ServicesSection: React.FC = () => {
+  const { t, isBn } = useTranslation();
   const scrollRef = React.useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = React.useState(false);
 
@@ -68,13 +70,13 @@ export const ServicesSection: React.FC = () => {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
           <div className="max-w-2xl">
             <span className="text-xs font-mono tracking-widest text-brand-cyan uppercase bg-brand-cyan/10 px-3.5 py-1.5 rounded-full border border-brand-cyan/20">
-              SERVICES
+              {isBn ? 'সেবাসমূহ' : 'SERVICES'}
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-4 tracking-tight">
-              Services That I Provide
+              {t.services.title}
             </h2>
             <p className="text-slate-400 mt-3 text-sm sm:text-base">
-              Specialized solutions designed for high performance, exceptional user experiences, and scalable codebase architecture.
+              {t.services.subtitle}
             </p>
           </div>
 
@@ -130,49 +132,56 @@ export const ServicesSection: React.FC = () => {
               },
             }}
           >
-            {infiniteServices.map((service, idx) => (
-              <div
-                key={`${service.id}-${idx}`}
-                className="w-[270px] sm:w-[310px] lg:w-[330px] shrink-0 glass-card rounded-2xl p-6 relative flex flex-col justify-between group border border-white/10 hover:border-brand-cyan/50 transition-all duration-300 shadow-xl"
-              >
-                <div>
-                  {/* Icon & Title Header Row */}
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:border-brand-cyan/50 transition-all shadow-md">
-                      {iconMap[service.icon] || <Sparkles className="w-5 h-5 text-brand-cyan" />}
+            {infiniteServices.map((service, idx) => {
+              const itemTrans = t.services.items[service.id as keyof typeof t.services.items];
+              const title = itemTrans?.title || service.title;
+              const fullDesc = itemTrans?.fullDesc || service.fullDesc;
+              const features = itemTrans?.features || service.features;
+
+              return (
+                <div
+                  key={`${service.id}-${idx}`}
+                  className="w-[270px] sm:w-[310px] lg:w-[330px] shrink-0 glass-card rounded-2xl p-6 relative flex flex-col justify-between group border border-white/10 hover:border-brand-cyan/50 transition-all duration-300 shadow-xl"
+                >
+                  <div>
+                    {/* Icon & Title Header Row */}
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:border-brand-cyan/50 transition-all shadow-md">
+                        {iconMap[service.icon] || <Sparkles className="w-5 h-5 text-brand-cyan" />}
+                      </div>
+
+                      <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-brand-cyan transition-colors leading-tight">
+                        {title}
+                      </h3>
                     </div>
 
-                    <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-brand-cyan transition-colors leading-tight">
-                      {service.title}
-                    </h3>
+                    {/* Description */}
+                    <p className="text-slate-300 text-xs leading-relaxed mb-4 text-justify">
+                      {fullDesc}
+                    </p>
+
+                    {/* Features List */}
+                    <div className="space-y-2 pt-3 border-t border-white/10 mb-4">
+                      {features.map((feat) => (
+                        <div key={feat} className="flex items-center gap-2 text-[11px] text-slate-300">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-brand-cyan shrink-0" />
+                          <span>{feat}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
 
-                  {/* Description */}
-                  <p className="text-slate-300 text-xs leading-relaxed mb-4 text-justify">
-                    {service.fullDesc}
-                  </p>
-
-                  {/* Features List */}
-                  <div className="space-y-2 pt-3 border-t border-white/10 mb-4">
-                    {service.features.map((feat) => (
-                      <div key={feat} className="flex items-center gap-2 text-[11px] text-slate-300">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-brand-cyan shrink-0" />
-                        <span>{feat}</span>
-                      </div>
-                    ))}
-                  </div>
+                  {/* Action link */}
+                  <a
+                    href="#contact"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-cyan hover:text-white transition-colors group/link mt-1"
+                  >
+                    <span>{isBn ? 'সেবার জন্য যোগাযোগ' : 'Request Service'}</span>
+                    <ArrowRight className="w-3 h-3 group-hover/link:translate-x-1 transition-transform" />
+                  </a>
                 </div>
-
-                {/* Action link */}
-                <a
-                  href="#contact"
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-cyan hover:text-white transition-colors group/link mt-1"
-                >
-                  <span>Request Service</span>
-                  <ArrowRight className="w-3 h-3 group-hover/link:translate-x-1 transition-transform" />
-                </a>
-              </div>
-            ))}
+              );
+            })}
           </motion.div>
         </div>
       </div>

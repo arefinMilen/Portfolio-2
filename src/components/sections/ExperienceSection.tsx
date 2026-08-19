@@ -3,9 +3,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { experienceData, certificationsData } from '@/data/portfolioData';
+import { useTranslation } from '@/i18n/useTranslation';
 import { GraduationCap, Briefcase, Calendar, MapPin, Award, CheckCircle2, ExternalLink } from 'lucide-react';
 
 export const ExperienceSection: React.FC = () => {
+  const { t, isBn } = useTranslation();
   const educationItems = experienceData.filter((item) => item.type === 'education');
   const workItems = experienceData.filter((item) => item.type === 'experience');
 
@@ -16,13 +18,13 @@ export const ExperienceSection: React.FC = () => {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-xs font-mono tracking-widest text-brand-cyan uppercase bg-brand-cyan/10 px-3.5 py-1.5 rounded-full border border-brand-cyan/20">
-            ABOUT & JOURNEY
+            {isBn ? 'অভিজ্ঞতা ও শিক্ষা' : 'ABOUT & JOURNEY'}
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-4 tracking-tight">
-            Experience, Education & Certifications
+            {t.experience.title}
           </h2>
           <p className="text-slate-400 mt-3 text-base">
-            My career trajectory across full-stack engineering, agentic AI workflows, academic milestones, and professional credentials.
+            {t.experience.subtitle}
           </p>
         </div>
 
@@ -35,71 +37,88 @@ export const ExperienceSection: React.FC = () => {
               <div className="w-10 h-10 rounded-xl bg-brand-cyan/10 border border-brand-cyan/30 flex items-center justify-center">
                 <Briefcase className="w-5 h-5 text-brand-cyan" />
               </div>
-              <h3 className="text-2xl font-bold text-white">Work Experience</h3>
+              <h3 className="text-2xl font-bold text-white">{t.experience.workTab}</h3>
             </div>
 
             <div className="space-y-6 relative before:absolute before:left-5 before:top-4 before:bottom-4 before:w-0.5 before:bg-gradient-to-b before:from-brand-cyan before:to-brand-violet/20">
-              {workItems.map((item, idx) => (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className="relative pl-12"
-                >
-                  {/* Timeline Node */}
-                  <span className="absolute left-3.5 top-5 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-brand-cyan border-4 border-dark-bg shadow-md shadow-cyan-500/50" />
+              {workItems.map((item, idx) => {
+                const itemTrans = t.experience.items[item.id as keyof typeof t.experience.items] as {
+                  role?: string;
+                  company?: string;
+                  period?: string;
+                  description?: string;
+                  location?: string;
+                  achievements?: string[];
+                } | undefined;
+                const role = itemTrans?.role || item.role;
+                const company = itemTrans?.company || item.company;
+                const period = itemTrans?.period || item.period;
+                const description = itemTrans?.description || item.description;
+                const location = itemTrans?.location || item.location;
+                const achievements = itemTrans?.achievements || item.achievements;
 
-                  <div className="glass-card rounded-2xl p-6 border border-white/10">
-                    <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                      <h4 className="text-lg font-bold text-white">{item.role}</h4>
-                      <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-cyan-300 flex items-center gap-1.5">
-                        <Calendar className="w-3 h-3" />
-                        <span>{item.period}</span>
-                      </span>
-                    </div>
+                return (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: idx * 0.1 }}
+                    className="relative pl-12"
+                  >
+                    {/* Timeline Node */}
+                    <span className="absolute left-3.5 top-5 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-brand-cyan border-4 border-dark-bg shadow-md shadow-cyan-500/50" />
 
-                    <div className="text-sm font-semibold text-brand-cyan mb-3 flex items-center gap-2">
-                      <span>{item.company}</span>
-                      {item.location && (
-                        <span className="text-xs font-normal text-slate-400 flex items-center gap-1">
-                          <MapPin className="w-3 h-3" />
-                          {item.location}
+                    <div className="glass-card rounded-2xl p-6 border border-white/10">
+                      <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                        <h4 className="text-lg font-bold text-white">{role}</h4>
+                        <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-cyan-300 flex items-center gap-1.5">
+                          <Calendar className="w-3 h-3" />
+                          <span>{period}</span>
                         </span>
+                      </div>
+
+                      <div className="text-sm font-semibold text-brand-cyan mb-3 flex items-center gap-2">
+                        <span>{company}</span>
+                        {location && (
+                          <span className="text-xs font-normal text-slate-400 flex items-center gap-1">
+                            <MapPin className="w-3 h-3" />
+                            {location}
+                          </span>
+                        )}
+                      </div>
+
+                      <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4">
+                        {description}
+                      </p>
+
+                      {achievements && achievements.length > 0 && (
+                        <ul className="space-y-2 mb-4">
+                          {achievements.map((ach, i) => (
+                            <li key={i} className="text-xs text-slate-300 flex items-start gap-2 leading-relaxed">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-brand-cyan shrink-0 mt-0.5" />
+                              <span>{ach}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+
+                      {item.technologies && (
+                        <div className="flex flex-wrap gap-1.5">
+                          {item.technologies.map((tech) => (
+                            <span
+                              key={tech}
+                              className="px-2 py-0.5 rounded bg-black/40 text-[11px] font-mono text-slate-300 border border-white/5"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
                       )}
                     </div>
-
-                    <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4">
-                      {item.description}
-                    </p>
-
-                    {item.achievements && item.achievements.length > 0 && (
-                      <ul className="space-y-2 mb-4">
-                        {item.achievements.map((ach, i) => (
-                          <li key={i} className="text-xs text-slate-300 flex items-start gap-2 leading-relaxed">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-brand-cyan shrink-0 mt-0.5" />
-                            <span>{ach}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-
-                    {item.technologies && (
-                      <div className="flex flex-wrap gap-1.5">
-                        {item.technologies.map((tech) => (
-                          <span
-                            key={tech}
-                            className="px-2 py-0.5 rounded bg-black/40 text-[11px] font-mono text-slate-300 border border-white/5"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
 
@@ -109,52 +128,69 @@ export const ExperienceSection: React.FC = () => {
               <div className="w-10 h-10 rounded-xl bg-brand-violet/10 border border-brand-violet/30 flex items-center justify-center">
                 <GraduationCap className="w-5 h-5 text-brand-violet" />
               </div>
-              <h3 className="text-2xl font-bold text-white">Education</h3>
+              <h3 className="text-2xl font-bold text-white">{t.experience.eduTab}</h3>
             </div>
 
             <div className="space-y-6 relative before:absolute before:left-5 before:top-4 before:bottom-4 before:w-0.5 before:bg-gradient-to-b before:from-brand-violet before:to-brand-cyan/20">
-              {educationItems.map((item, idx) => (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className="relative pl-12"
-                >
-                  {/* Timeline Node */}
-                  <span className="absolute left-3.5 top-5 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-brand-violet border-4 border-dark-bg shadow-md shadow-purple-500/50" />
+              {educationItems.map((item, idx) => {
+                const itemTrans = t.experience.items[item.id as keyof typeof t.experience.items] as {
+                  role?: string;
+                  company?: string;
+                  period?: string;
+                  description?: string;
+                  location?: string;
+                  cgpa?: string;
+                } | undefined;
+                const role = itemTrans?.role || item.role;
+                const company = itemTrans?.company || item.company;
+                const period = itemTrans?.period || item.period;
+                const description = itemTrans?.description || item.description;
+                const location = itemTrans?.location || item.location;
+                const cgpa = itemTrans?.cgpa || item.cgpa;
 
-                  <div className="glass-card rounded-2xl p-6 border border-white/10">
-                    <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                      <h4 className="text-lg font-bold text-white">{item.role}</h4>
-                      <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-purple-300 flex items-center gap-1.5">
-                        <Calendar className="w-3 h-3" />
-                        <span>{item.period}</span>
-                      </span>
-                    </div>
+                return (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: idx * 0.1 }}
+                    className="relative pl-12"
+                  >
+                    {/* Timeline Node */}
+                    <span className="absolute left-3.5 top-5 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-brand-violet border-4 border-dark-bg shadow-md shadow-purple-500/50" />
 
-                    <div className="text-sm font-semibold text-brand-violet mb-3 flex items-center gap-2 flex-wrap">
-                      <span>{item.company}</span>
-                      {item.cgpa && (
-                        <span className="px-2 py-0.5 rounded bg-brand-violet/20 border border-brand-violet/40 text-xs font-mono text-purple-200">
-                          {item.cgpa}
+                    <div className="glass-card rounded-2xl p-6 border border-white/10">
+                      <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                        <h4 className="text-lg font-bold text-white">{role}</h4>
+                        <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-purple-300 flex items-center gap-1.5">
+                          <Calendar className="w-3 h-3" />
+                          <span>{period}</span>
                         </span>
-                      )}
-                      {item.location && (
-                        <span className="text-xs font-normal text-slate-400 flex items-center gap-1">
-                          <MapPin className="w-3 h-3" />
-                          {item.location}
-                        </span>
-                      )}
-                    </div>
+                      </div>
 
-                    <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                      {item.description}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
+                      <div className="text-sm font-semibold text-brand-violet mb-3 flex items-center gap-2 flex-wrap">
+                        <span>{company}</span>
+                        {cgpa && (
+                          <span className="px-2 py-0.5 rounded bg-brand-violet/20 border border-brand-violet/40 text-xs font-mono text-purple-200">
+                            {cgpa}
+                          </span>
+                        )}
+                        {location && (
+                          <span className="text-xs font-normal text-slate-400 flex items-center gap-1">
+                            <MapPin className="w-3 h-3" />
+                            {location}
+                          </span>
+                        )}
+                      </div>
+
+                      <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                        {description}
+                      </p>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
 
@@ -172,55 +208,62 @@ export const ExperienceSection: React.FC = () => {
               <Award className="w-5 h-5 text-amber-400" />
             </div>
             <div>
-              <h3 className="text-2xl font-bold text-white">Certifications & Credentials</h3>
-              <p className="text-xs text-slate-400 font-mono">Government & International Skill Recognition</p>
+              <h3 className="text-2xl font-bold text-white">{isBn ? 'সার্টিফিকেট ও ক্রেডেনশিয়াল' : 'Certifications & Credentials'}</h3>
+              <p className="text-xs text-slate-400 font-mono">{isBn ? 'জাতীয় ও আন্তর্জাতিক দক্ষতা স্বীকৃতি' : 'Government & International Skill Recognition'}</p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {certificationsData.map((cert) => (
-              <div key={cert.id} className="glass-card rounded-2xl p-6 border border-white/10 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-start justify-between gap-2 mb-3">
-                    <h4 className="text-base font-bold text-white leading-snug">{cert.title}</h4>
-                    {cert.credentialUrl ? (
-                      <a
-                        href={cert.credentialUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-2.5 py-1 rounded bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-[11px] font-mono text-amber-300 shrink-0 flex items-center gap-1 transition-colors"
-                        title="Verify Certificate"
-                      >
-                        <span>Verify</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
-                    ) : (
-                      <span className="px-2.5 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-[11px] font-mono text-amber-300 shrink-0">
-                        Verified
-                      </span>
+            {certificationsData.map((cert) => {
+              const certTrans = t.experience.certs[cert.id as keyof typeof t.experience.certs];
+              const title = certTrans?.title || cert.title;
+              const issuer = certTrans?.issuer || cert.issuer;
+              const period = certTrans?.period || cert.period;
+
+              return (
+                <div key={cert.id} className="glass-card rounded-2xl p-6 border border-white/10 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-start justify-between gap-2 mb-3">
+                      <h4 className="text-base font-bold text-white leading-snug">{title}</h4>
+                      {cert.credentialUrl ? (
+                        <a
+                          href={cert.credentialUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-2.5 py-1 rounded bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-[11px] font-mono text-amber-300 shrink-0 flex items-center gap-1 transition-colors"
+                          title="Verify Certificate"
+                        >
+                          <span>{isBn ? 'যাচাই করুন' : 'Verify'}</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      ) : (
+                        <span className="px-2.5 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-[11px] font-mono text-amber-300 shrink-0">
+                          {isBn ? 'যাচাইকৃত' : 'Verified'}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-xs font-semibold text-brand-cyan mb-2">{issuer}</p>
+                    <p className="text-xs font-mono text-slate-400 mb-4">{period}</p>
+                    
+                    {cert.credentialId && (
+                      <div className="text-[11px] font-mono text-slate-400 bg-black/30 p-2 rounded border border-white/5 mb-4">
+                        {isBn ? 'আইডি: ' : 'Credential ID: '}<span className="text-slate-200">{cert.credentialId}</span>
+                      </div>
                     )}
                   </div>
-                  <p className="text-xs font-semibold text-brand-cyan mb-2">{cert.issuer}</p>
-                  <p className="text-xs font-mono text-slate-400 mb-4">{cert.period}</p>
-                  
-                  {cert.credentialId && (
-                    <div className="text-[11px] font-mono text-slate-400 bg-black/30 p-2 rounded border border-white/5 mb-4">
-                      Credential ID: <span className="text-slate-200">{cert.credentialId}</span>
+
+                  {cert.skills && (
+                    <div className="flex flex-wrap gap-1.5 pt-3 border-t border-white/10">
+                      {cert.skills.map((skill) => (
+                        <span key={skill} className="px-2 py-0.5 rounded bg-white/5 text-[10px] font-mono text-slate-300">
+                          {skill}
+                        </span>
+                      ))}
                     </div>
                   )}
                 </div>
-
-                {cert.skills && (
-                  <div className="flex flex-wrap gap-1.5 pt-3 border-t border-white/10">
-                    {cert.skills.map((skill) => (
-                      <span key={skill} className="px-2 py-0.5 rounded bg-white/5 text-[10px] font-mono text-slate-300">
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+              );
+            })}
           </div>
         </motion.div>
 

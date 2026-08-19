@@ -1,7 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Project } from '@/types/portfolio';
 
+export type Language = 'en' | 'bn';
+
 interface UIState {
+  language: Language;
   activeSection: string;
   activeSkillCategory: string;
   activeProjectCategory: string;
@@ -13,6 +16,7 @@ interface UIState {
 }
 
 const initialState: UIState = {
+  language: 'en',
   activeSection: 'home',
   activeSkillCategory: 'all',
   activeProjectCategory: 'all',
@@ -27,6 +31,16 @@ export const uiSlice = createSlice({
   name: 'ui',
   initialState,
   reducers: {
+    setLanguage: (state, action: PayloadAction<Language>) => {
+      state.language = action.payload;
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem('portfolio_lang', action.payload);
+        } catch {
+          // Ignore write errors
+        }
+      }
+    },
     setActiveSection: (state, action: PayloadAction<string>) => {
       state.activeSection = action.payload;
     },
@@ -60,6 +74,7 @@ export const uiSlice = createSlice({
 });
 
 export const {
+  setLanguage,
   setActiveSection,
   setActiveSkillCategory,
   setActiveProjectCategory,
