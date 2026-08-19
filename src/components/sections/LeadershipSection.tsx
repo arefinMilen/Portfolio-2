@@ -23,12 +23,12 @@ export const LeadershipSection: React.FC = () => {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-xs font-mono tracking-widest text-brand-cyan uppercase bg-brand-cyan/10 px-3.5 py-1.5 rounded-full border border-brand-cyan/20">
-            {isBn ? 'নেতৃত্ব ও সমাজসেবা' : 'COMMUNITY & IMPACT'}
+            {isBn ? 'নেতৃত্ব ও ইমপ্যাক্ট' : 'COMMUNITY & IMPACT'}
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-4 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-4 tracking-tight">
             {t.leadership.title}
           </h2>
-          <p className="text-slate-400 mt-3 text-base">
+          <p className="text-slate-600 dark:text-slate-400 mt-3 text-base">
             {t.leadership.subtitle}
           </p>
         </div>
@@ -49,49 +49,45 @@ export const LeadershipSection: React.FC = () => {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.15 }}
-                className="glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between border border-white/10 group"
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="glass-card rounded-3xl p-6 sm:p-8 border border-black/10 dark:border-white/10 flex flex-col justify-between group hover:border-brand-cyan/40 transition-all shadow-xl"
               >
                 <div>
-                  {/* Icon & Title Header */}
-                  <div className="flex items-start gap-4 mb-6">
-                    <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                      {iconMap[item.iconName] || <Award className="w-6 h-6 text-brand-cyan" />}
+                  {/* Top Badge */}
+                  <div className="flex items-center justify-between gap-2 mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-brand-cyan/10 border border-brand-cyan/30 flex items-center justify-center text-brand-cyan group-hover:scale-110 transition-transform">
+                      {iconMap[item.iconName] || <HelpingHand className="w-5 h-5 text-brand-cyan" />}
                     </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-white group-hover:text-brand-cyan transition-colors">
-                        {title}
-                      </h3>
-                      <p className="text-xs font-mono text-cyan-300 font-semibold mt-1">
-                        {role}
-                      </p>
-                      <p className="text-[11px] font-mono text-slate-400 mt-0.5">
-                        {period} | {location}
-                      </p>
-                    </div>
+                    <span className="text-[11px] font-mono text-cyan-600 dark:text-cyan-300 font-semibold bg-brand-cyan/10 px-3 py-1 rounded-full border border-brand-cyan/20">
+                      {period}
+                    </span>
                   </div>
 
-                  {/* Bullet Highlights */}
-                  <div className="space-y-2.5 pt-4 border-t border-white/10 mb-6">
-                    {highlights.map((highlight, hIdx) => (
-                      <div key={hIdx} className="flex items-start gap-2.5 text-xs text-slate-300 leading-relaxed">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-brand-cyan transition-colors mb-1">
+                    {title}
+                  </h3>
+                  <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-4">{role} • {location}</p>
+
+                  {/* Highlights Bullet List */}
+                  <div className="space-y-2.5 pt-4 border-t border-black/10 dark:border-white/10 mb-6">
+                    {highlights.map((point, i) => (
+                      <div key={i} className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-300">
                         <CheckCircle2 className="w-4 h-4 text-brand-cyan shrink-0 mt-0.5" />
-                        <span>{highlight}</span>
+                        <span className="leading-relaxed">{point}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                {/* Link */}
                 {item.link && (
                   <a
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-xs font-semibold text-brand-cyan hover:text-white transition-colors pt-4 border-t border-white/5"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-cyan hover:text-slate-900 dark:hover:text-white transition-colors group/link mt-2"
                   >
                     <span>{t.leadership.viewInitiative}</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
+                    <ExternalLink className="w-3.5 h-3.5 group-hover/link:translate-x-0.5 transition-transform" />
                   </a>
                 )}
               </motion.div>

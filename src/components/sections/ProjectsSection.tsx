@@ -41,17 +41,38 @@ export const ProjectsSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-          <div>
-            <span className="text-xs font-mono tracking-widest text-brand-cyan uppercase bg-brand-cyan/10 px-3.5 py-1.5 rounded-full border border-brand-cyan/20">
-              {isBn ? 'সেরা প্রজেক্টসমূহ' : 'FEATURED WORK'}
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-4 tracking-tight">
-              {t.projects.title}
-            </h2>
-            <p className="text-slate-400 mt-2 text-base max-w-xl">
-              {t.projects.subtitle}
-            </p>
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <span className="text-xs font-mono tracking-widest text-brand-cyan uppercase bg-brand-cyan/10 px-3.5 py-1.5 rounded-full border border-brand-cyan/20">
+            {isBn ? 'প্রজেক্ট পোর্টফোলিও' : 'PROJECT PORTFOLIO'}
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-4 tracking-tight">
+            {t.projects.title}
+          </h2>
+          <p className="text-slate-600 dark:text-slate-400 mt-3 text-base">
+            {t.projects.subtitle}
+          </p>
+        </div>
+
+        {/* Filter Bar & Search Row */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-12">
+          {/* Category Tabs */}
+          <div className="flex flex-wrap items-center justify-center gap-2 p-1.5 rounded-2xl glass-panel border border-black/10 dark:border-white/10 w-full md:w-auto">
+            {categories.map((cat) => {
+              const isActive = activeProjectCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => dispatch(setActiveProjectCategory(cat.id))}
+                  className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+                    isActive
+                      ? 'bg-gradient-to-r from-brand-cyan to-cyan-400 text-dark-bg shadow-lg shadow-cyan-500/20'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              );
+            })}
           </div>
 
           {/* Search Input */}
@@ -59,32 +80,12 @@ export const ProjectsSection: React.FC = () => {
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder={isBn ? 'প্রজেক্ট বা টেক খুঁজুন...' : 'Search stack or title...'}
               value={searchQuery}
               onChange={(e) => dispatch(setSearchQuery(e.target.value))}
-              className="w-full pl-10 pr-4 py-2.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-brand-cyan/50 transition-all"
+              placeholder={isBn ? 'প্রজেক্ট খুঁজুন...' : 'Search projects...'}
+              className="w-full pl-10 pr-4 py-2 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-brand-cyan transition-colors"
             />
           </div>
-        </div>
-
-        {/* Filter Category Tabs */}
-        <div className="flex flex-wrap items-center gap-2 mb-12 border-b border-white/10 pb-4">
-          {categories.map((cat) => {
-            const isActive = activeProjectCategory === cat.id;
-            return (
-              <button
-                key={cat.id}
-                onClick={() => dispatch(setActiveProjectCategory(cat.id))}
-                className={`px-4 py-2 rounded-full text-xs font-mono transition-all ${
-                  isActive
-                    ? 'bg-brand-cyan text-dark-bg font-bold shadow-lg shadow-cyan-500/20'
-                    : 'bg-white/5 text-slate-400 hover:text-slate-200 border border-white/5'
-                }`}
-              >
-                {cat.label}
-              </button>
-            );
-          })}
         </div>
 
         {/* Projects Grid */}
@@ -102,28 +103,28 @@ export const ProjectsSection: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="glass-card rounded-3xl overflow-hidden flex flex-col justify-between group border border-white/10 hover:border-brand-cyan/40"
+                className="glass-card rounded-3xl overflow-hidden flex flex-col justify-between group border border-black/10 dark:border-white/10 hover:border-brand-cyan/40 transition-all shadow-xl"
               >
                 <div>
                   {/* Image Container */}
-                  <div className="relative w-full h-52 overflow-hidden bg-slate-900">
+                  <div className="relative w-full h-52 overflow-hidden bg-black/10 dark:bg-slate-900">
                     <Image
                       src={project.image}
                       alt={title}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent opacity-80" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 dark:from-dark-bg via-transparent to-transparent opacity-80" />
 
                     {/* Badge */}
-                    <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-dark-bg/80 backdrop-blur-md border border-white/10 text-cyan-300 font-mono text-[11px]">
+                    <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/60 dark:bg-dark-bg/80 backdrop-blur-md border border-brand-cyan/30 text-brand-cyan font-mono text-[11px]">
                       {categoryLabel}
                     </span>
 
                     {/* Quick Action overlay button */}
                     <button
                       onClick={() => dispatch(openProjectModal(project))}
-                      className="absolute top-4 right-4 p-2 rounded-full bg-dark-bg/80 backdrop-blur-md border border-white/10 text-slate-300 hover:text-brand-cyan transition-colors shadow-lg"
+                      className="absolute top-4 right-4 p-2 rounded-full bg-black/60 dark:bg-dark-bg/80 backdrop-blur-md border border-black/10 dark:border-white/10 text-slate-200 dark:text-slate-300 hover:text-brand-cyan transition-colors shadow-lg"
                       aria-label="Quick View"
                     >
                       <Eye className="w-4 h-4" />
@@ -132,10 +133,10 @@ export const ProjectsSection: React.FC = () => {
 
                   {/* Content */}
                   <div className="p-6">
-                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-brand-cyan transition-colors">
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-brand-cyan transition-colors">
                       {title}
                     </h3>
-                    <p className="text-slate-300 text-xs sm:text-sm line-clamp-3 mb-4 leading-relaxed">
+                    <p className="text-slate-700 dark:text-slate-300 text-xs sm:text-sm line-clamp-3 mb-4 leading-relaxed">
                       {description}
                     </p>
 
@@ -144,7 +145,7 @@ export const ProjectsSection: React.FC = () => {
                       {project.tags.slice(0, 4).map((tag) => (
                         <span
                           key={tag}
-                          className="px-2.5 py-0.5 rounded-md bg-white/5 border border-white/5 text-[11px] font-mono text-slate-400"
+                          className="px-2.5 py-0.5 rounded-md bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5 text-[11px] font-mono text-slate-600 dark:text-slate-400"
                         >
                           {tag}
                         </span>
@@ -154,10 +155,10 @@ export const ProjectsSection: React.FC = () => {
                 </div>
 
                 {/* Card Footer Actions */}
-                <div className="px-6 pb-6 pt-2 flex items-center justify-between border-t border-white/5">
+                <div className="px-6 pb-6 pt-2 flex items-center justify-between border-t border-black/5 dark:border-white/5">
                   <button
                     onClick={() => dispatch(openProjectModal(project))}
-                    className="text-xs font-semibold text-brand-cyan hover:text-white flex items-center gap-1.5 transition-colors"
+                    className="text-xs font-semibold text-brand-cyan hover:text-slate-900 dark:hover:text-white flex items-center gap-1.5 transition-colors"
                   >
                     <span>{t.projects.viewDetails}</span>
                     <Eye className="w-3.5 h-3.5" />
@@ -169,7 +170,7 @@ export const ProjectsSection: React.FC = () => {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 rounded-lg bg-white/5 hover:bg-brand-cyan hover:text-dark-bg text-slate-300 transition-all border border-white/10"
+                        className="p-2 rounded-lg bg-black/5 dark:bg-white/5 hover:bg-brand-cyan hover:text-dark-bg text-slate-700 dark:text-slate-300 transition-all border border-black/10 dark:border-white/10"
                         title={t.projects.liveDemo}
                       >
                         <ExternalLink className="w-4 h-4" />
@@ -177,7 +178,7 @@ export const ProjectsSection: React.FC = () => {
                     )}
                     <Link
                       href={`/projects/${project.slug}`}
-                      className="p-2 rounded-lg bg-white/5 hover:bg-white/20 text-slate-300 transition-all border border-white/10"
+                      className="p-2 rounded-lg bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/20 text-slate-700 dark:text-slate-300 transition-all border border-black/10 dark:border-white/10"
                       title={isBn ? 'কেস স্টাডি পেজ' : 'Case Study Page'}
                     >
                       <ArrowRight className="w-4 h-4" />

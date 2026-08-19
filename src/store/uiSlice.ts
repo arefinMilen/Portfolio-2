@@ -2,9 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Project } from '@/types/portfolio';
 
 export type Language = 'en' | 'bn';
+export type Theme = 'dark' | 'light';
 
 interface UIState {
   language: Language;
+  theme: Theme;
   activeSection: string;
   activeSkillCategory: string;
   activeProjectCategory: string;
@@ -17,6 +19,7 @@ interface UIState {
 
 const initialState: UIState = {
   language: 'en',
+  theme: 'dark',
   activeSection: 'home',
   activeSkillCategory: 'all',
   activeProjectCategory: 'all',
@@ -27,10 +30,36 @@ const initialState: UIState = {
   searchQuery: '',
 };
 
+const applyThemeToDocument = (theme: Theme) => {
+  if (typeof window !== 'undefined') {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+      root.classList.remove('light');
+    } else {
+      root.classList.add('light');
+      root.classList.remove('dark');
+    }
+    try {
+      localStorage.setItem('portfolio_theme', theme);
+    } catch {
+      // Ignore write errors
+    }
+  }
+};
+
 export const uiSlice = createSlice({
   name: 'ui',
   initialState,
   reducers: {
+    setTheme: (state, action: PayloadAction<Theme>) => {
+      state.theme = action.payload;
+      applyThemeToDocument(action.payload);
+    },
+    toggleTheme: (state) => {
+      state.theme = state.theme === 'dark' ? 'light' : 'dark';
+      applyThemeToDocument(state.theme);
+    },
     setLanguage: (state, action: PayloadAction<Language>) => {
       state.language = action.payload;
       if (typeof window !== 'undefined') {
@@ -74,6 +103,8 @@ export const uiSlice = createSlice({
 });
 
 export const {
+  setTheme,
+  toggleTheme,
   setLanguage,
   setActiveSection,
   setActiveSkillCategory,

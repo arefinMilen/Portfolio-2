@@ -1,9 +1,12 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
+import { useAppSelector } from '@/store/store';
 
 export const BackgroundCanvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const theme = useAppSelector((state) => state.ui.theme);
+  const isLight = theme === 'light';
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -52,12 +55,14 @@ export const BackgroundCanvas: React.FC = () => {
       constructor() {
         this.x = Math.random() * width;
         this.y = Math.random() * height;
-        this.size = Math.random() * 2 + 0.5;
+        this.size = Math.random() * 2.5 + 0.5;
         this.speedX = (Math.random() - 0.5) * 0.4;
         this.speedY = (Math.random() - 0.5) * 0.4;
         this.alpha = Math.random() * 0.5 + 0.2;
         
-        const colors = ['#00f2fe', '#7928ca', '#3b82f6', '#10b981'];
+        const colors = isLight 
+          ? ['#0284c7', '#7e22ce', '#2563eb', '#059669']
+          : ['#00f2fe', '#7928ca', '#3b82f6', '#10b981'];
         this.color = colors[Math.floor(Math.random() * colors.length)];
       }
 
@@ -103,9 +108,15 @@ export const BackgroundCanvas: React.FC = () => {
         mouse.y,
         450
       );
-      radialGradient.addColorStop(0, 'rgba(0, 242, 254, 0.07)');
-      radialGradient.addColorStop(0.5, 'rgba(121, 40, 202, 0.03)');
-      radialGradient.addColorStop(1, 'transparent');
+      if (isLight) {
+        radialGradient.addColorStop(0, 'rgba(2, 132, 199, 0.08)');
+        radialGradient.addColorStop(0.5, 'rgba(126, 34, 206, 0.04)');
+        radialGradient.addColorStop(1, 'transparent');
+      } else {
+        radialGradient.addColorStop(0, 'rgba(0, 242, 254, 0.07)');
+        radialGradient.addColorStop(0.5, 'rgba(121, 40, 202, 0.03)');
+        radialGradient.addColorStop(1, 'transparent');
+      }
 
       ctx.fillStyle = radialGradient;
       ctx.fillRect(0, 0, width, height);
@@ -126,12 +137,12 @@ export const BackgroundCanvas: React.FC = () => {
       window.removeEventListener('mousemove', handleMouseMove);
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [isLight]);
 
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0 grid-pattern opacity-60"
+      className="fixed inset-0 pointer-events-none z-0 grid-pattern opacity-60 transition-opacity duration-500"
     />
   );
 };

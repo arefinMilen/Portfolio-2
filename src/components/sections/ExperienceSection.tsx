@@ -18,18 +18,17 @@ export const ExperienceSection: React.FC = () => {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-xs font-mono tracking-widest text-brand-cyan uppercase bg-brand-cyan/10 px-3.5 py-1.5 rounded-full border border-brand-cyan/20">
-            {isBn ? 'অভিজ্ঞতা ও শিক্ষা' : 'ABOUT & JOURNEY'}
+            {isBn ? 'অভিজ্ঞতা ও শিক্ষা' : 'CAREER & EDUCATION'}
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-4 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-4 tracking-tight">
             {t.experience.title}
           </h2>
-          <p className="text-slate-400 mt-3 text-base">
+          <p className="text-slate-600 dark:text-slate-400 mt-3 text-base">
             {t.experience.subtitle}
           </p>
         </div>
 
-        {/* Dual Columns: Work Experience vs Education */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           
           {/* Work Experience Column */}
           <div>
@@ -37,7 +36,7 @@ export const ExperienceSection: React.FC = () => {
               <div className="w-10 h-10 rounded-xl bg-brand-cyan/10 border border-brand-cyan/30 flex items-center justify-center">
                 <Briefcase className="w-5 h-5 text-brand-cyan" />
               </div>
-              <h3 className="text-2xl font-bold text-white">{t.experience.workTab}</h3>
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white">{t.experience.workTab}</h3>
             </div>
 
             <div className="space-y-6 relative before:absolute before:left-5 before:top-4 before:bottom-4 before:w-0.5 before:bg-gradient-to-b before:from-brand-cyan before:to-brand-violet/20">
@@ -67,48 +66,52 @@ export const ExperienceSection: React.FC = () => {
                     className="relative pl-12"
                   >
                     {/* Timeline Node */}
-                    <span className="absolute left-3.5 top-5 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-brand-cyan border-4 border-dark-bg shadow-md shadow-cyan-500/50" />
+                    <span className="absolute left-3.5 top-5 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-brand-cyan border-4 border-slate-50 dark:border-dark-bg shadow-md shadow-cyan-500/50" />
 
-                    <div className="glass-card rounded-2xl p-6 border border-white/10">
-                      <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                        <h4 className="text-lg font-bold text-white">{role}</h4>
-                        <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-cyan-300 flex items-center gap-1.5">
-                          <Calendar className="w-3 h-3" />
-                          <span>{period}</span>
+                    {/* Card Content */}
+                    <div className="glass-card rounded-2xl p-6 border border-black/10 dark:border-white/10 space-y-3">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <span className="text-xs font-mono text-brand-cyan font-semibold">
+                          {period}
                         </span>
-                      </div>
-
-                      <div className="text-sm font-semibold text-brand-cyan mb-3 flex items-center gap-2">
-                        <span>{company}</span>
-                        {location && (
-                          <span className="text-xs font-normal text-slate-400 flex items-center gap-1">
-                            <MapPin className="w-3 h-3" />
+                        {item.location && (
+                          <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
                             {location}
                           </span>
                         )}
                       </div>
 
-                      <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4">
+                      <div>
+                        <h4 className="text-lg font-bold text-slate-900 dark:text-white leading-tight">
+                          {role}
+                        </h4>
+                        <p className="text-sm font-semibold text-cyan-600 dark:text-cyan-300">
+                          {company}
+                        </p>
+                      </div>
+
+                      <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed text-justify">
                         {description}
                       </p>
 
-                      {achievements && achievements.length > 0 && (
-                        <ul className="space-y-2 mb-4">
+                      {/* Key Achievements */}
+                      {achievements && (
+                        <div className="pt-2 border-t border-black/10 dark:border-white/10 space-y-1.5">
                           {achievements.map((ach, i) => (
-                            <li key={i} className="text-xs text-slate-300 flex items-start gap-2 leading-relaxed">
+                            <div key={i} className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-300">
                               <CheckCircle2 className="w-3.5 h-3.5 text-brand-cyan shrink-0 mt-0.5" />
                               <span>{ach}</span>
-                            </li>
+                            </div>
                           ))}
-                        </ul>
+                        </div>
                       )}
 
                       {item.technologies && (
-                        <div className="flex flex-wrap gap-1.5">
+                        <div className="flex flex-wrap gap-1.5 pt-2">
                           {item.technologies.map((tech) => (
                             <span
                               key={tech}
-                              className="px-2 py-0.5 rounded bg-black/40 text-[11px] font-mono text-slate-300 border border-white/5"
+                              className="px-2 py-0.5 rounded bg-black/5 dark:bg-white/5 text-[11px] font-mono text-slate-700 dark:text-slate-300 border border-black/5 dark:border-white/5"
                             >
                               {tech}
                             </span>
@@ -122,13 +125,13 @@ export const ExperienceSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Education Column */}
+          {/* Education & Certifications Column */}
           <div>
             <div className="flex items-center gap-3 mb-8">
               <div className="w-10 h-10 rounded-xl bg-brand-violet/10 border border-brand-violet/30 flex items-center justify-center">
                 <GraduationCap className="w-5 h-5 text-brand-violet" />
               </div>
-              <h3 className="text-2xl font-bold text-white">{t.experience.eduTab}</h3>
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white">{t.experience.eduTab}</h3>
             </div>
 
             <div className="space-y-6 relative before:absolute before:left-5 before:top-4 before:bottom-4 before:w-0.5 before:bg-gradient-to-b before:from-brand-violet before:to-brand-cyan/20">
@@ -145,7 +148,6 @@ export const ExperienceSection: React.FC = () => {
                 const company = itemTrans?.company || item.company;
                 const period = itemTrans?.period || item.period;
                 const description = itemTrans?.description || item.description;
-                const location = itemTrans?.location || item.location;
                 const cgpa = itemTrans?.cgpa || item.cgpa;
 
                 return (
@@ -158,33 +160,30 @@ export const ExperienceSection: React.FC = () => {
                     className="relative pl-12"
                   >
                     {/* Timeline Node */}
-                    <span className="absolute left-3.5 top-5 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-brand-violet border-4 border-dark-bg shadow-md shadow-purple-500/50" />
+                    <span className="absolute left-3.5 top-5 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-brand-violet border-4 border-slate-50 dark:border-dark-bg shadow-md shadow-purple-500/50" />
 
-                    <div className="glass-card rounded-2xl p-6 border border-white/10">
-                      <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                        <h4 className="text-lg font-bold text-white">{role}</h4>
-                        <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-purple-300 flex items-center gap-1.5">
-                          <Calendar className="w-3 h-3" />
-                          <span>{period}</span>
+                    <div className="glass-card rounded-2xl p-6 border border-black/10 dark:border-white/10 space-y-3">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <span className="text-xs font-mono text-purple-600 dark:text-purple-300 font-semibold">
+                          {period}
                         </span>
-                      </div>
-
-                      <div className="text-sm font-semibold text-brand-violet mb-3 flex items-center gap-2 flex-wrap">
-                        <span>{company}</span>
                         {cgpa && (
-                          <span className="px-2 py-0.5 rounded bg-brand-violet/20 border border-brand-violet/40 text-xs font-mono text-purple-200">
+                          <span className="px-2.5 py-0.5 rounded-full bg-brand-violet/10 border border-brand-violet/30 text-purple-700 dark:text-purple-200 text-xs font-mono font-bold">
                             {cgpa}
                           </span>
                         )}
-                        {location && (
-                          <span className="text-xs font-normal text-slate-400 flex items-center gap-1">
-                            <MapPin className="w-3 h-3" />
-                            {location}
-                          </span>
-                        )}
                       </div>
 
-                      <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                      <div>
+                        <h4 className="text-lg font-bold text-slate-900 dark:text-white leading-tight">
+                          {role}
+                        </h4>
+                        <p className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                          {company}
+                        </p>
+                      </div>
+
+                      <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
                         {description}
                       </p>
                     </div>
@@ -201,15 +200,15 @@ export const ExperienceSection: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="glass-panel rounded-3xl p-8 border border-white/10"
+          className="glass-panel rounded-3xl p-6 sm:p-8 border border-black/10 dark:border-white/10 mt-16 shadow-xl"
         >
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center">
-              <Award className="w-5 h-5 text-amber-400" />
+            <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
+              <Award className="w-5 h-5 text-amber-500 dark:text-amber-400" />
             </div>
             <div>
-              <h3 className="text-2xl font-bold text-white">{isBn ? 'সার্টিফিকেট ও ক্রেডেনশিয়াল' : 'Certifications & Credentials'}</h3>
-              <p className="text-xs text-slate-400 font-mono">{isBn ? 'জাতীয় ও আন্তর্জাতিক দক্ষতা স্বীকৃতি' : 'Government & International Skill Recognition'}</p>
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white">{isBn ? 'সার্টিফিকেট ও ক্রেডেনশিয়াল' : 'Certifications & Credentials'}</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-mono font-medium">{isBn ? 'জাতীয় ও আন্তর্জাতিক দক্ষতা স্বীকৃতি' : 'Government & International Skill Recognition'}</p>
             </div>
           </div>
 
@@ -221,41 +220,41 @@ export const ExperienceSection: React.FC = () => {
               const period = certTrans?.period || cert.period;
 
               return (
-                <div key={cert.id} className="glass-card rounded-2xl p-6 border border-white/10 flex flex-col justify-between">
+                <div key={cert.id} className="glass-card rounded-2xl p-6 border border-black/10 dark:border-white/10 flex flex-col justify-between shadow-sm">
                   <div>
                     <div className="flex items-start justify-between gap-2 mb-3">
-                      <h4 className="text-base font-bold text-white leading-snug">{title}</h4>
+                      <h4 className="text-base font-bold text-slate-900 dark:text-white leading-snug">{title}</h4>
                       {cert.credentialUrl ? (
                         <a
                           href={cert.credentialUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-2.5 py-1 rounded bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-[11px] font-mono text-amber-300 shrink-0 flex items-center gap-1 transition-colors"
+                          className="px-2.5 py-1 rounded bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-[11px] font-mono text-amber-600 dark:text-amber-300 shrink-0 flex items-center gap-1 transition-colors font-semibold"
                           title="Verify Certificate"
                         >
                           <span>{isBn ? 'যাচাই করুন' : 'Verify'}</span>
                           <ExternalLink className="w-3 h-3" />
                         </a>
                       ) : (
-                        <span className="px-2.5 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-[11px] font-mono text-amber-300 shrink-0">
+                        <span className="px-2.5 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-[11px] font-mono text-amber-600 dark:text-amber-300 shrink-0 font-semibold">
                           {isBn ? 'যাচাইকৃত' : 'Verified'}
                         </span>
                       )}
                     </div>
                     <p className="text-xs font-semibold text-brand-cyan mb-2">{issuer}</p>
-                    <p className="text-xs font-mono text-slate-400 mb-4">{period}</p>
+                    <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-4">{period}</p>
                     
                     {cert.credentialId && (
-                      <div className="text-[11px] font-mono text-slate-400 bg-black/30 p-2 rounded border border-white/5 mb-4">
-                        {isBn ? 'আইডি: ' : 'Credential ID: '}<span className="text-slate-200">{cert.credentialId}</span>
+                      <div className="text-[11px] font-mono text-slate-600 dark:text-slate-400 bg-black/5 dark:bg-black/30 p-2 rounded border border-black/5 dark:border-white/5 mb-4">
+                        {isBn ? 'আইডি: ' : 'Credential ID: '}<span className="text-slate-900 dark:text-slate-200 font-semibold">{cert.credentialId}</span>
                       </div>
                     )}
                   </div>
 
                   {cert.skills && (
-                    <div className="flex flex-wrap gap-1.5 pt-3 border-t border-white/10">
+                    <div className="flex flex-wrap gap-1.5 pt-3 border-t border-black/5 dark:border-white/10">
                       {cert.skills.map((skill) => (
-                        <span key={skill} className="px-2 py-0.5 rounded bg-white/5 text-[10px] font-mono text-slate-300">
+                        <span key={skill} className="px-2 py-0.5 rounded bg-black/5 dark:bg-white/5 text-[10px] font-mono text-slate-700 dark:text-slate-300 border border-black/5 dark:border-white/5">
                           {skill}
                         </span>
                       ))}

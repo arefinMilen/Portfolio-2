@@ -50,7 +50,7 @@ const TypewriterHeadline: React.FC<{ isBn: boolean }> = ({ isBn }) => {
   }, [currentText, isDeleting, roleIndex, roles]);
 
   return (
-    <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.2] mb-6 min-h-[4rem] sm:min-h-[5rem]">
+    <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.2] mb-6 min-h-[4rem] sm:min-h-[5rem]">
       {isBn ? 'আমি একজন ' : "I'M A "}
       <span className="text-gradient-cyan">
         {currentText}
@@ -85,11 +85,11 @@ const AnimatedCounter: React.FC<{ value: string; label: string }> = ({ value, la
   }, [targetNumber]);
 
   return (
-    <div className="bg-white/5 rounded-xl p-3 border border-white/5 text-center hover:border-brand-cyan/40 transition-all">
+    <div className="bg-black/5 dark:bg-white/5 rounded-xl p-3 border border-black/10 dark:border-white/5 text-center hover:border-brand-cyan/40 transition-all">
       <div className="text-xl sm:text-2xl font-extrabold text-gradient-cyan">
         {count}{suffix}
       </div>
-      <div className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">{label}</div>
+      <div className="text-[11px] font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wider">{label}</div>
     </div>
   );
 };
@@ -119,24 +119,11 @@ export const HeroSection: React.FC = () => {
             transition={{ duration: 0.8, ease: 'easeOut' }}
             className="lg:col-span-7 flex flex-col items-start"
           >
-            {/* Status Pill */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-brand-cyan/30 backdrop-blur-md mb-6"
-            >
-              <Sparkles className="w-4 h-4 text-brand-cyan animate-pulse" />
-              <span className="text-xs font-mono text-cyan-200 tracking-wide uppercase">
-                {isBn ? 'সফটওয়্যার ইঞ্জিনিয়ার ও এজেন্টিক এআই স্পেশালিস্ট' : 'Software Engineer & Agentic AI Specialist'}
-              </span>
-            </motion.div>
-
             {/* Typewriter Main Headline */}
             <TypewriterHeadline isBn={isBn} />
 
             {/* Bio Paragraph */}
-            <p className="text-lg text-slate-300 leading-relaxed mb-8 max-w-2xl text-justify">
+            <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed mb-8 max-w-2xl text-justify">
               {t.hero.bio}
             </p>
 
@@ -154,7 +141,7 @@ export const HeroSection: React.FC = () => {
 
               <a
                 href="#work"
-                className="w-full sm:w-auto px-6 py-3.5 rounded-full glass-card hover:bg-white/10 text-slate-200 font-semibold text-sm flex items-center justify-center gap-2 border border-white/10 group"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-full glass-card hover:bg-black/5 dark:hover:bg-white/10 text-slate-800 dark:text-slate-200 font-semibold text-sm flex items-center justify-center gap-2 border border-black/10 dark:border-white/10 group"
               >
                 <span>{t.hero.exploreProjects}</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -162,7 +149,7 @@ export const HeroSection: React.FC = () => {
 
               <a
                 href={`tel:${personalDetails.phone.replace(/[^0-9+]/g, '')}`}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-full glass-card hover:bg-white/10 text-slate-200 font-semibold text-sm flex items-center justify-center gap-2 border border-white/10"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-full glass-card hover:bg-black/5 dark:hover:bg-white/10 text-slate-800 dark:text-slate-200 font-semibold text-sm flex items-center justify-center gap-2 border border-black/10 dark:border-white/10"
               >
                 <PhoneCall className="w-4 h-4 text-brand-cyan" />
                 <span>{isBn ? 'কল করুন' : 'Call'}</span>
@@ -170,12 +157,12 @@ export const HeroSection: React.FC = () => {
             </div>
 
             {/* Floating Tech Badges */}
-            <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-white/10 w-full">
-              <span className="text-xs font-mono text-slate-400">{isBn ? 'মূল টেকনোলজি:' : 'CORE STACK:'}</span>
+            <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-black/10 dark:border-white/10 w-full">
+              <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{isBn ? 'মূল টেকনোলজি:' : 'CORE STACK:'}</span>
               {['Next.js App Router', 'TypeScript', 'Claude Agent', 'PostgreSQL', 'Redux Toolkit', 'TanStack Query', 'Framer Motion'].map((tech) => (
                 <span
                   key={tech}
-                  className="px-3 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-mono text-cyan-300"
+                  className="px-3 py-1 rounded-md bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-xs font-mono text-cyan-700 dark:text-cyan-300"
                 >
                   {tech}
                 </span>
@@ -195,7 +182,7 @@ export const HeroSection: React.FC = () => {
               <div className="absolute -inset-1.5 rounded-3xl bg-gradient-to-r from-brand-cyan to-brand-violet opacity-50 blur-xl animate-pulse" />
               
               {/* Card Container */}
-              <div className="relative glass-panel rounded-3xl p-6 border border-white/15 shadow-2xl flex flex-col items-center text-center">
+              <div className="relative glass-panel rounded-3xl p-6 border border-black/15 dark:border-white/15 shadow-2xl flex flex-col items-center text-center">
                 {/* Profile Image */}
                 <div className="relative w-48 h-48 rounded-2xl overflow-hidden border-2 border-brand-cyan/50 shadow-xl mb-5 group">
                   <Image
@@ -205,14 +192,14 @@ export const HeroSection: React.FC = () => {
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                     priority
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark-bg/80 via-transparent to-transparent opacity-60" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 dark:from-dark-bg/80 via-transparent to-transparent opacity-60" />
                 </div>
 
-                <h3 className="text-xl font-bold text-white mb-1">{t.hero.name}</h3>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1">{t.hero.name}</h3>
                 <p className="text-sm text-brand-cyan font-mono mb-4">{t.hero.role}</p>
 
                 {/* Animated Quick Stats Grid */}
-                <div className="grid grid-cols-2 gap-3 w-full pt-4 border-t border-white/10">
+                <div className="grid grid-cols-2 gap-3 w-full pt-4 border-t border-black/10 dark:border-white/10">
                   {statsData.map((stat) => (
                     <AnimatedCounter key={stat.label} value={stat.value} label={stat.label} />
                   ))}

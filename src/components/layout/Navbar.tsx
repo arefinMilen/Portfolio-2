@@ -8,6 +8,7 @@ import { setActiveSection, toggleMobileMenu, setMobileMenuOpen } from '@/store/u
 import { personalDetails } from '@/data/portfolioData';
 import { useTranslation } from '@/i18n/useTranslation';
 import { LanguageSwitcher } from '@/components/common/LanguageSwitcher';
+import { ThemeToggle } from '@/components/common/ThemeToggle';
 import { Menu, X, Sparkles, Send, Calendar } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
@@ -64,7 +65,7 @@ export const Navbar: React.FC = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'py-3 bg-dark-bg/80 backdrop-blur-xl border-b border-white/10 shadow-2xl shadow-cyan-950/20'
+          ? 'py-3 bg-slate-900/80 dark:bg-dark-bg/80 light:bg-white/85 backdrop-blur-xl border-b border-black/10 dark:border-white/10 shadow-2xl shadow-cyan-950/20'
           : 'py-5 bg-transparent'
       }`}
     >
@@ -84,18 +85,14 @@ export const Navbar: React.FC = () => {
             />
           </div>
           <div>
-            <span className="text-lg font-bold tracking-tight text-white group-hover:text-brand-cyan transition-colors">
+            <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-white group-hover:text-brand-cyan transition-colors">
               {t.hero.name}
-            </span>
-            <span className="flex items-center text-xs text-slate-400 gap-1 font-mono">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              {t.nav.availableForHire}
             </span>
           </div>
         </Link>
 
         {/* Desktop Nav Links */}
-        <nav className="hidden md:flex items-center gap-1 glass-panel px-4 py-1.5 rounded-full border border-white/10">
+        <nav className="hidden md:flex items-center gap-1 glass-panel px-4 py-1.5 rounded-full border border-black/10 dark:border-white/10">
           {navItems.map((item) => {
             const isActive = activeSection === item.id;
             return (
@@ -108,8 +105,8 @@ export const Navbar: React.FC = () => {
                 }}
                 className={`relative px-4 py-2 text-sm font-medium transition-all rounded-full ${
                   isActive
-                    ? 'text-white font-semibold'
-                    : 'text-slate-400 hover:text-slate-200'
+                    ? 'text-slate-900 dark:text-white font-semibold'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                 }`}
               >
                 {isActive && (
@@ -121,37 +118,19 @@ export const Navbar: React.FC = () => {
           })}
         </nav>
 
-        {/* Right CTA & Language Switcher */}
+        {/* Right Controls (Language & Theme Switcher) */}
         <div className="hidden lg:flex items-center gap-3">
+          <ThemeToggle variant="navbar" />
           <LanguageSwitcher variant="navbar" />
-          <a
-            href={personalDetails.appointmentUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-xs font-semibold text-slate-200 hover:text-brand-cyan transition-all px-3.5 py-2 rounded-full border border-brand-cyan/40 bg-brand-cyan/10 hover:bg-brand-cyan/20"
-          >
-            <Calendar className="w-3.5 h-3.5 text-brand-cyan" />
-            <span>{t.nav.bookMeeting}</span>
-          </a>
-          <a
-            href="#contact"
-            onClick={(e) => {
-              e.preventDefault();
-              handleNavClick('#contact');
-            }}
-            className="relative group px-4 py-2 rounded-full text-xs font-semibold tracking-wide text-dark-bg bg-brand-cyan hover:bg-cyan-300 transition-all shadow-lg shadow-cyan-500/25 flex items-center gap-1.5"
-          >
-            <Send className="w-3.5 h-3.5" />
-            <span>{t.nav.letsTalk}</span>
-          </a>
         </div>
 
-        {/* Mobile Toggle & Mobile Switcher */}
+        {/* Mobile Controls */}
         <div className="flex md:hidden items-center gap-2">
+          <ThemeToggle variant="navbar" />
           <LanguageSwitcher variant="navbar" />
           <button
             onClick={() => dispatch(toggleMobileMenu())}
-            className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-slate-300 hover:text-white"
+            className="p-2.5 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:text-black dark:hover:text-white"
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -161,7 +140,8 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden fixed inset-x-0 top-[70px] p-4 bg-dark-bg/95 backdrop-blur-2xl border-b border-white/10 shadow-2xl flex flex-col gap-3 z-40 animate-in slide-in-from-top-4 duration-200">
+        <div className="md:hidden fixed inset-x-0 top-[70px] p-4 bg-white/95 dark:bg-dark-bg/95 backdrop-blur-2xl border-b border-black/10 dark:border-white/10 shadow-2xl flex flex-col gap-3 z-40 animate-in slide-in-from-top-4 duration-200">
+          <ThemeToggle variant="mobile" />
           <LanguageSwitcher variant="mobile" />
           {navItems.map((item) => {
             const isActive = activeSection === item.id;
@@ -175,8 +155,8 @@ export const Navbar: React.FC = () => {
                 }}
                 className={`px-4 py-3 rounded-xl text-base font-medium flex items-center justify-between ${
                   isActive
-                    ? 'bg-gradient-to-r from-brand-cyan/20 to-brand-violet/20 border border-brand-cyan/40 text-white font-semibold'
-                    : 'text-slate-300 hover:bg-white/5'
+                    ? 'bg-gradient-to-r from-brand-cyan/20 to-brand-violet/20 border border-brand-cyan/40 text-slate-900 dark:text-white font-semibold'
+                    : 'text-slate-700 dark:text-slate-300 hover:bg-black/5 dark:hover:bg-white/5'
                 }`}
               >
                 <span>{item.label}</span>
@@ -184,28 +164,6 @@ export const Navbar: React.FC = () => {
               </a>
             );
           })}
-          <div className="pt-2 border-t border-white/10 flex flex-col gap-2">
-            <a
-              href={personalDetails.appointmentUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-brand-violet to-purple-600 text-white font-semibold text-center flex items-center justify-center gap-2 shadow-lg shadow-purple-500/20 border border-purple-400/30"
-            >
-              <Calendar className="w-4 h-4 text-cyan-300" />
-              <span>{t.nav.bookMeeting}</span>
-            </a>
-            <a
-              href="#contact"
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick('#contact');
-              }}
-              className="w-full py-3 rounded-xl bg-brand-cyan text-dark-bg font-semibold text-center flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20"
-            >
-              <Send className="w-4 h-4" />
-              <span>{t.nav.letsTalk}</span>
-            </a>
-          </div>
         </div>
       )}
     </header>

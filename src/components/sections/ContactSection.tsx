@@ -74,10 +74,10 @@ export const ContactSection: React.FC = () => {
           <span className="text-xs font-mono tracking-widest text-brand-cyan uppercase bg-brand-cyan/10 px-3.5 py-1.5 rounded-full border border-brand-cyan/20">
             {isBn ? 'যোগাযোগ' : 'GET IN TOUCH'}
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-4 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-4 tracking-tight">
             {t.contact.title}
           </h2>
-          <p className="text-slate-400 mt-3 text-base">
+          <p className="text-slate-600 dark:text-slate-400 mt-3 text-base">
             {t.contact.subtitle}
           </p>
         </div>
@@ -86,22 +86,22 @@ export const ContactSection: React.FC = () => {
           
           {/* Left Column: Contact Cards */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="glass-panel rounded-3xl p-6 sm:p-8 border border-white/10 space-y-6">
-              <h3 className="text-1xl font-bold text-white mb-2">{t.contact.contactInfo}</h3>
+            <div className="glass-panel rounded-3xl p-6 sm:p-8 border border-black/10 dark:border-white/10 space-y-6 shadow-xl">
+              <h3 className="text-1xl font-bold text-slate-900 dark:text-white mb-2">{t.contact.contactInfo}</h3>
 
               {/* Google Calendar Appointment Card */}
               <a
                 href={personalDetails.appointmentUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-brand-violet/20 to-purple-600/20 border border-brand-violet/40 hover:border-brand-cyan transition-all group shadow-lg shadow-purple-950/30"
+                className="flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-brand-violet/20 to-purple-600/20 border border-brand-violet/40 hover:border-brand-cyan transition-all group shadow-lg shadow-purple-950/20"
               >
-                <div className="w-12 h-12 rounded-xl bg-brand-violet/30 border border-brand-violet/50 flex items-center justify-center text-cyan-300 group-hover:scale-110 group-hover:rotate-6 transition-transform">
-                  <Calendar className="w-6 h-6 text-cyan-300" />
+                <div className="w-12 h-12 rounded-xl bg-brand-violet/30 border border-brand-violet/50 flex items-center justify-center text-cyan-600 dark:text-cyan-300 group-hover:scale-110 group-hover:rotate-6 transition-transform shrink-0">
+                  <Calendar className="w-6 h-6 text-cyan-600 dark:text-cyan-300" />
                 </div>
                 <div>
-                  <div className="text-xs font-mono text-purple-300 font-semibold uppercase tracking-wider">{isBn ? 'তাৎক্ষণিক শিডিউল' : 'Instant Scheduling'}</div>
-                  <div className="text-sm font-bold text-white group-hover:text-brand-cyan transition-colors flex items-center gap-1.5">
+                  <div className="text-xs font-mono text-purple-700 dark:text-purple-300 font-semibold uppercase tracking-wider">{isBn ? 'তাৎক্ষণিক শিডিউল' : 'Instant Scheduling'}</div>
+                  <div className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-brand-cyan transition-colors flex items-center gap-1.5">
                     <span>{t.nav.bookMeeting}</span>
                   </div>
                 </div>
@@ -110,14 +110,14 @@ export const ContactSection: React.FC = () => {
               {/* Phone Card */}
               <a
                 href={`tel:${personalDetails.phone.replace(/[^0-9+]/g, '')}`}
-                className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-cyan/40 transition-all group"
+                className="flex items-center gap-4 p-4 rounded-2xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/5 hover:border-brand-cyan/40 transition-all group"
               >
-                <div className="w-12 h-12 rounded-xl bg-brand-cyan/10 border border-brand-cyan/30 flex items-center justify-center text-brand-cyan group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 rounded-xl bg-brand-cyan/10 border border-brand-cyan/30 flex items-center justify-center text-brand-cyan group-hover:scale-110 transition-transform shrink-0">
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-xs font-mono text-slate-400">{t.contact.phoneLabel}</div>
-                  <div className="text-sm font-semibold text-white group-hover:text-brand-cyan transition-colors">
+                  <div className="text-xs font-mono text-slate-500 dark:text-slate-400">{t.contact.phoneLabel}</div>
+                  <div className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-brand-cyan transition-colors">
                     {personalDetails.phone}
                   </div>
                 </div>
@@ -126,27 +126,27 @@ export const ContactSection: React.FC = () => {
               {/* Email Card */}
               <a
                 href={`mailto:${personalDetails.email}`}
-                className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-cyan/40 transition-all group"
+                className="flex items-center gap-4 p-4 rounded-2xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/5 hover:border-brand-cyan/40 transition-all group"
               >
-                <div className="w-12 h-12 rounded-xl bg-brand-violet/10 border border-brand-violet/30 flex items-center justify-center text-brand-violet group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 rounded-xl bg-brand-violet/10 border border-brand-violet/30 flex items-center justify-center text-brand-violet group-hover:scale-110 transition-transform shrink-0">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-xs font-mono text-slate-400">{t.contact.emailLabel}</div>
-                  <div className="text-sm font-semibold text-white group-hover:text-cyan-300 transition-colors">
+                  <div className="text-xs font-mono text-slate-500 dark:text-slate-400">{t.contact.emailLabel}</div>
+                  <div className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-300 transition-colors">
                     {personalDetails.email}
                   </div>
                 </div>
               </a>
 
               {/* Location Card */}
-              <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
-                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+              <div className="flex items-center gap-4 p-4 rounded-2xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/5">
+                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-500 dark:text-emerald-400 shrink-0">
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-xs font-mono text-slate-400">{t.contact.locationLabel}</div>
-                  <div className="text-sm font-semibold text-white">
+                  <div className="text-xs font-mono text-slate-500 dark:text-slate-400">{t.contact.locationLabel}</div>
+                  <div className="text-sm font-semibold text-slate-900 dark:text-white">
                     {t.contact.locationValue}
                   </div>
                 </div>
@@ -159,22 +159,22 @@ export const ContactSection: React.FC = () => {
           <div className="lg:col-span-7">
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="glass-panel rounded-3xl p-6 sm:p-8 border border-white/10 space-y-6 shadow-2xl"
+              className="glass-panel rounded-3xl p-6 sm:p-8 border border-black/10 dark:border-white/10 space-y-6 shadow-2xl"
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {/* Name */}
                 <div>
-                  <label className="block text-xs font-mono text-slate-300 mb-2">
+                  <label className="block text-xs font-mono text-slate-700 dark:text-slate-300 mb-2">
                     {t.contact.name} *
                   </label>
                   <input
                     type="text"
                     {...register('name')}
                     placeholder={t.contact.namePlaceholder}
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-cyan transition-colors"
+                    className="w-full px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-brand-cyan transition-colors"
                   />
                   {errors.name && (
-                    <span className="text-xs text-rose-400 mt-1 block">
+                    <span className="text-xs text-rose-500 dark:text-rose-400 mt-1 block">
                       {errors.name.message}
                     </span>
                   )}
@@ -182,17 +182,17 @@ export const ContactSection: React.FC = () => {
 
                 {/* Email */}
                 <div>
-                  <label className="block text-xs font-mono text-slate-300 mb-2">
+                  <label className="block text-xs font-mono text-slate-700 dark:text-slate-300 mb-2">
                     {t.contact.email} *
                   </label>
                   <input
                     type="email"
                     {...register('email')}
                     placeholder={t.contact.emailPlaceholder}
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-cyan transition-colors"
+                    className="w-full px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-brand-cyan transition-colors"
                   />
                   {errors.email && (
-                    <span className="text-xs text-rose-400 mt-1 block">
+                    <span className="text-xs text-rose-500 dark:text-rose-400 mt-1 block">
                       {errors.email.message}
                     </span>
                   )}
@@ -201,17 +201,17 @@ export const ContactSection: React.FC = () => {
 
               {/* Subject */}
               <div>
-                <label className="block text-xs font-mono text-slate-300 mb-2">
+                <label className="block text-xs font-mono text-slate-700 dark:text-slate-300 mb-2">
                   {t.contact.subject} *
                 </label>
                 <input
                   type="text"
                   {...register('subject')}
                   placeholder={t.contact.subjectPlaceholder}
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-cyan transition-colors"
+                  className="w-full px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-brand-cyan transition-colors"
                 />
                 {errors.subject && (
-                  <span className="text-xs text-rose-400 mt-1 block">
+                  <span className="text-xs text-rose-500 dark:text-rose-400 mt-1 block">
                     {errors.subject.message}
                   </span>
                 )}
@@ -219,17 +219,17 @@ export const ContactSection: React.FC = () => {
 
               {/* Message */}
               <div>
-                <label className="block text-xs font-mono text-slate-300 mb-2">
+                <label className="block text-xs font-mono text-slate-700 dark:text-slate-300 mb-2">
                   {t.contact.message} *
                 </label>
                 <textarea
                   rows={5}
                   {...register('message')}
                   placeholder={t.contact.messagePlaceholder}
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-cyan transition-colors"
+                  className="w-full px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-brand-cyan transition-colors"
                 />
                 {errors.message && (
-                  <span className="text-xs text-rose-400 mt-1 block">
+                  <span className="text-xs text-rose-500 dark:text-rose-400 mt-1 block">
                     {errors.message.message}
                   </span>
                 )}

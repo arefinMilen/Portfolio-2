@@ -34,28 +34,28 @@ export const SkillsSection: React.FC = () => {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-xs font-mono tracking-widest text-brand-cyan uppercase bg-brand-cyan/10 px-3.5 py-1.5 rounded-full border border-brand-cyan/20">
-            {isBn ? 'কারিগরি দক্ষতা' : 'TECHNICAL SKILLS'}
+            {isBn ? 'প্রযুক্তিগত দক্ষতা' : 'TECHNICAL EXPERTISE'}
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-4 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-4 tracking-tight">
             {t.skills.title}
           </h2>
-          <p className="text-slate-400 mt-3 text-base">
+          <p className="text-slate-600 dark:text-slate-400 mt-3 text-base">
             {t.skills.subtitle}
           </p>
         </div>
 
-        {/* Category Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-14">
+        {/* Category Filter Tabs */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
           {categoryTabs.map((tab) => {
             const isActive = activeSkillCategory === tab.id;
             return (
               <button
                 key={tab.id}
                 onClick={() => dispatch(setActiveSkillCategory(tab.id))}
-                className={`px-5 py-2.5 rounded-full text-xs font-mono transition-all ${
+                className={`px-4 py-2 rounded-full text-xs font-mono font-semibold transition-all border ${
                   isActive
-                    ? 'bg-gradient-to-r from-brand-cyan to-cyan-400 text-dark-bg font-bold shadow-lg shadow-cyan-500/25'
-                    : 'bg-white/5 text-slate-400 hover:text-slate-200 border border-white/10'
+                    ? 'bg-gradient-to-r from-brand-cyan to-brand-violet text-white border-transparent shadow-lg shadow-cyan-500/20'
+                    : 'bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:border-black/20 dark:hover:border-white/20'
                 }`}
               >
                 {tab.label}
@@ -64,10 +64,11 @@ export const SkillsSection: React.FC = () => {
           })}
         </div>
 
-        {/* Skills Grid Categories */}
+        {/* Skills Display Categories */}
         <div className="space-y-12">
           {displayedCategories.map((category) => {
-            const categoryTitleTrans = t.skills.categories[category.id as keyof typeof t.skills.categories] || category.title;
+            const categoryTitleTrans =
+              t.skills.categories[category.id as keyof typeof t.skills.categories] || category.title;
 
             return (
               <motion.div
@@ -75,9 +76,9 @@ export const SkillsSection: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="glass-panel rounded-3xl p-6 sm:p-8 border border-white/10"
+                className="glass-panel rounded-3xl p-6 sm:p-8 border border-black/10 dark:border-white/10 shadow-xl"
               >
-                <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2 border-b border-white/10 pb-4">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2 border-b border-black/10 dark:border-white/10 pb-4">
                   <Sparkles className="w-5 h-5 text-brand-cyan" />
                   <span>{categoryTitleTrans}</span>
                 </h3>
@@ -85,17 +86,17 @@ export const SkillsSection: React.FC = () => {
                 {/* Proficient Sub-Section */}
                 {category.proficient.length > 0 && (
                   <div className="mb-6">
-                    <div className="text-xs font-mono text-cyan-300 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                      <Star className="w-3.5 h-3.5 fill-cyan-400 text-cyan-400" />
+                    <div className="text-xs font-mono text-cyan-600 dark:text-cyan-300 uppercase tracking-wider mb-3 flex items-center gap-1.5 font-semibold">
+                      <Star className="w-3.5 h-3.5 fill-cyan-500 text-cyan-500" />
                       <span>{isBn ? 'দক্ষ প্রযুক্তি' : 'Proficient Stack'}</span>
                     </div>
                     <div className="flex flex-wrap gap-3">
                       {category.proficient.map((skill) => (
                         <div
                           key={skill.name}
-                          className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-brand-cyan/15 to-brand-violet/15 border border-brand-cyan/40 text-slate-100 text-xs sm:text-sm font-semibold flex items-center gap-2.5 shadow-lg shadow-cyan-950/30 hover:border-brand-cyan hover:scale-[1.02] transition-all"
+                          className="px-4 py-2.5 rounded-xl bg-black/5 dark:bg-white/5 border border-brand-cyan/40 text-slate-900 dark:text-slate-100 text-xs sm:text-sm font-semibold flex items-center gap-2.5 shadow-md hover:border-brand-cyan hover:scale-[1.02] transition-all"
                         >
-                          <SkillIcon name={skill.icon} className="w-4 sm:w-5 h-4 sm:h-5 shrink-0" />
+                          <SkillIcon name={skill.icon} className="w-4 sm:w-5 h-4 sm:h-5 shrink-0 text-brand-cyan" />
                           <span>{skill.name}</span>
                         </div>
                       ))}
@@ -106,14 +107,14 @@ export const SkillsSection: React.FC = () => {
                 {/* Familiar Sub-Section */}
                 {category.familiar.length > 0 && (
                   <div>
-                    <div className="text-xs font-mono text-slate-400 uppercase tracking-wider mb-3">
+                    <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3 font-semibold">
                       {isBn ? 'পরিচিত প্রযুক্তি' : 'Familiar Technologies'}
                     </div>
                     <div className="flex flex-wrap gap-2.5">
                       {category.familiar.map((skill) => (
                         <div
                           key={skill.name}
-                          className="px-3.5 py-2 rounded-lg bg-white/5 border border-white/10 text-slate-300 text-xs font-mono flex items-center gap-2 hover:bg-white/10 hover:border-white/20 transition-colors"
+                          className="px-3.5 py-2 rounded-lg bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-slate-700 dark:text-slate-300 text-xs font-mono flex items-center gap-2 hover:border-brand-violet/40 transition-colors"
                         >
                           <SkillIcon name={skill.icon} className="w-3.5 h-3.5 shrink-0" />
                           <span>{skill.name}</span>
