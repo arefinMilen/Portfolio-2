@@ -156,7 +156,7 @@ export const ServicesSection: React.FC = () => {
                     </div>
 
                     {/* Description */}
-                    <p className="text-slate-700 dark:text-slate-300 text-xs leading-relaxed mb-4 text-justify">
+                    <p className="text-slate-700 dark:text-slate-300 text-xs leading-relaxed mb-4 text-left">
                       {fullDesc}
                     </p>
 

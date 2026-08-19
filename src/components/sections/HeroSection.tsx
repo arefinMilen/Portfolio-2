@@ -123,12 +123,12 @@ export const HeroSection: React.FC = () => {
             <TypewriterHeadline isBn={isBn} />
 
             {/* Bio Paragraph */}
-            <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed mb-8 max-w-2xl text-justify">
+            <p className="text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed mb-8 max-w-2xl text-left sm:text-justify">
               {t.hero.bio}
             </p>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4 w-full sm:w-auto mb-10">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto mb-10">
               <a
                 href={personalDetails.appointmentUrl}
                 target="_blank"
@@ -157,12 +157,12 @@ export const HeroSection: React.FC = () => {
             </div>
 
             {/* Floating Tech Badges */}
-            <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-black/10 dark:border-white/10 w-full">
-              <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{isBn ? 'মূল টেকনোলজি:' : 'CORE STACK:'}</span>
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 pt-4 border-t border-black/10 dark:border-white/10 w-full">
+              <span className="text-xs font-mono text-slate-500 dark:text-slate-400 font-semibold">{isBn ? 'মূল টেকনোলজি:' : 'CORE STACK:'}</span>
               {['Next.js App Router', 'TypeScript', 'Claude Agent', 'PostgreSQL', 'Redux Toolkit', 'TanStack Query', 'Framer Motion'].map((tech) => (
                 <span
                   key={tech}
-                  className="px-3 py-1 rounded-md bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-xs font-mono text-cyan-700 dark:text-cyan-300"
+                  className="px-2.5 py-1 rounded-md bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-[11px] sm:text-xs font-mono text-cyan-700 dark:text-cyan-300"
                 >
                   {tech}
                 </span>
@@ -182,9 +182,9 @@ export const HeroSection: React.FC = () => {
               <div className="absolute -inset-1.5 rounded-3xl bg-gradient-to-r from-brand-cyan to-brand-violet opacity-50 blur-xl animate-pulse" />
               
               {/* Card Container */}
-              <div className="relative glass-panel rounded-3xl p-6 border border-black/15 dark:border-white/15 shadow-2xl flex flex-col items-center text-center">
+              <div className="relative glass-panel rounded-3xl p-5 sm:p-6 border border-black/15 dark:border-white/15 shadow-2xl flex flex-col items-center text-center">
                 {/* Profile Image */}
-                <div className="relative w-48 h-48 rounded-2xl overflow-hidden border-2 border-brand-cyan/50 shadow-xl mb-5 group">
+                <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-2xl overflow-hidden border-2 border-brand-cyan/50 shadow-xl mb-4 sm:mb-5 group">
                   <Image
                     src={personalDetails.avatar}
                     alt={t.hero.name}
@@ -195,11 +195,11 @@ export const HeroSection: React.FC = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 dark:from-dark-bg/80 via-transparent to-transparent opacity-60" />
                 </div>
 
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1">{t.hero.name}</h3>
-                <p className="text-sm text-brand-cyan font-mono mb-4">{t.hero.role}</p>
+                <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-1">{t.hero.name}</h3>
+                <p className="text-xs sm:text-sm text-brand-cyan font-mono mb-4">{t.hero.role}</p>
 
                 {/* Animated Quick Stats Grid */}
-                <div className="grid grid-cols-2 gap-3 w-full pt-4 border-t border-black/10 dark:border-white/10">
+                <div className="grid grid-cols-2 gap-2.5 sm:gap-3 w-full pt-4 border-t border-black/10 dark:border-white/10">
                   {statsData.map((stat) => (
                     <AnimatedCounter key={stat.label} value={stat.value} label={stat.label} />
                   ))}

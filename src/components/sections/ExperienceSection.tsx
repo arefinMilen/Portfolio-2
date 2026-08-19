@@ -39,7 +39,7 @@ export const ExperienceSection: React.FC = () => {
               <h3 className="text-2xl font-bold text-slate-900 dark:text-white">{t.experience.workTab}</h3>
             </div>
 
-            <div className="space-y-6 relative before:absolute before:left-5 before:top-4 before:bottom-4 before:w-0.5 before:bg-gradient-to-b before:from-brand-cyan before:to-brand-violet/20">
+            <div className="space-y-6 relative before:absolute before:left-3.5 sm:before:left-5 before:top-4 before:bottom-4 before:w-0.5 before:bg-gradient-to-b before:from-brand-cyan before:to-brand-violet/20">
               {workItems.map((item, idx) => {
                 const itemTrans = t.experience.items[item.id as keyof typeof t.experience.items] as {
                   role?: string;
@@ -63,13 +63,13 @@ export const ExperienceSection: React.FC = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
-                    className="relative pl-12"
+                    className="relative pl-8 sm:pl-12"
                   >
                     {/* Timeline Node */}
-                    <span className="absolute left-3.5 top-5 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-brand-cyan border-4 border-slate-50 dark:border-dark-bg shadow-md shadow-cyan-500/50" />
+                    <span className="absolute left-3.5 sm:left-5 top-5 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-brand-cyan border-4 border-slate-50 dark:border-dark-bg shadow-md shadow-cyan-500/50" />
 
                     {/* Card Content */}
-                    <div className="glass-card rounded-2xl p-6 border border-black/10 dark:border-white/10 space-y-3">
+                    <div className="glass-card rounded-2xl p-5 sm:p-6 border border-black/10 dark:border-white/10 space-y-3">
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <span className="text-xs font-mono text-brand-cyan font-semibold">
                           {period}
@@ -134,7 +134,7 @@ export const ExperienceSection: React.FC = () => {
               <h3 className="text-2xl font-bold text-slate-900 dark:text-white">{t.experience.eduTab}</h3>
             </div>
 
-            <div className="space-y-6 relative before:absolute before:left-5 before:top-4 before:bottom-4 before:w-0.5 before:bg-gradient-to-b before:from-brand-violet before:to-brand-cyan/20">
+            <div className="space-y-6 relative before:absolute before:left-3.5 sm:before:left-5 before:top-4 before:bottom-4 before:w-0.5 before:bg-gradient-to-b before:from-brand-violet before:to-brand-cyan/20">
               {educationItems.map((item, idx) => {
                 const itemTrans = t.experience.items[item.id as keyof typeof t.experience.items] as {
                   role?: string;
@@ -157,12 +157,12 @@ export const ExperienceSection: React.FC = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
-                    className="relative pl-12"
+                    className="relative pl-8 sm:pl-12"
                   >
                     {/* Timeline Node */}
-                    <span className="absolute left-3.5 top-5 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-brand-violet border-4 border-slate-50 dark:border-dark-bg shadow-md shadow-purple-500/50" />
+                    <span className="absolute left-3.5 sm:left-5 top-5 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-brand-violet border-4 border-slate-50 dark:border-dark-bg shadow-md shadow-purple-500/50" />
 
-                    <div className="glass-card rounded-2xl p-6 border border-black/10 dark:border-white/10 space-y-3">
+                    <div className="glass-card rounded-2xl p-5 sm:p-6 border border-black/10 dark:border-white/10 space-y-3">
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <span className="text-xs font-mono text-purple-600 dark:text-purple-300 font-semibold">
                           {period}
