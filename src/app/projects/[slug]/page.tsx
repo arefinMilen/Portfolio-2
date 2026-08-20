@@ -1,4 +1,5 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -15,6 +16,47 @@ export function generateStaticParams() {
   return projectsData.map((project) => ({
     slug: project.slug,
   }));
+}
+
+export function generateMetadata({ params }: ProjectPageProps): Metadata {
+  const project = projectsData.find((p) => p.slug === params.slug);
+  if (!project) {
+    return {
+      title: 'Project Not Found',
+    };
+  }
+
+  const baseUrl = 'https://samsul-arefin.dev';
+  const pageUrl = `${baseUrl}/projects/${project.slug}`;
+
+  return {
+    title: `${project.title} - Case Study`,
+    description: project.description,
+    keywords: [project.title, project.categoryLabel, ...project.tags, 'Case Study', 'Samsul Arefin'],
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title: `${project.title} - Case Study | Samsul Arefin`,
+      description: project.description,
+      url: pageUrl,
+      type: 'article',
+      images: [
+        {
+          url: project.image,
+          width: 1200,
+          height: 630,
+          alt: project.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${project.title} - Case Study`,
+      description: project.description,
+      images: [project.image],
+    },
+  };
 }
 
 export default function ProjectCaseStudyPage({ params }: ProjectPageProps) {
